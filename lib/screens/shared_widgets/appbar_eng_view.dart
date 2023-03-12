@@ -28,7 +28,7 @@ AppBar AppBar_eng({
           )
         : null,
     elevation: 0,
-    backgroundColor: Colors.white,
+    backgroundColor: const Color.fromARGB(255, 141, 123, 104),
     title: CustomText(
       text: title,
       color: AppColors.kPrimaryDark,

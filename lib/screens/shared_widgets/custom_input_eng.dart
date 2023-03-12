@@ -11,6 +11,7 @@ class CustomInput_eng extends StatelessWidget {
   final String label;
   final bool isRequired;
   final double? height;
+  final TextInputAction inputaction;
   const CustomInput_eng({
     required this.label,
     required this.controller,
@@ -18,6 +19,7 @@ class CustomInput_eng extends StatelessWidget {
     this.height,
     this.isRequired = false,
     Key? key,
+    required this.inputaction,
   }) : super(key: key);
 
   @override
@@ -27,15 +29,15 @@ class CustomInput_eng extends StatelessWidget {
         vertical: Dimensions.calcH(15),
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           CustomRichText(
             text: label,
             children: (isRequired)
                 ? [
                     const TextSpan(
-                      text: " *",
+                      text: "",
                       style: TextStyle(
                         color: Colors.red,
                       ),
@@ -44,15 +46,14 @@ class CustomInput_eng extends StatelessWidget {
                 : [],
           ),
           SizedBox(
-            height: Dimensions.calcH(8),
+            height: Dimensions.calcH(10),
           ),
           Container(
             color: AppColors.kSecondaryColor,
             height: height,
-            margin: EdgeInsets.only(
-              right: Dimensions.calcW(50),
-            ),
             child: TextFormField(
+              textDirection: TextDirection.rtl,
+              textInputAction: inputaction,
               controller: controller,
               keyboardType: type,
               decoration: InputDecoration(

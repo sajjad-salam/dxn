@@ -38,17 +38,20 @@ class NewBusinessScreen extends StatelessWidget {
                     Column(
                       children: [
                         CustomInput_eng(
+                          inputaction: TextInputAction.next,
                           controller: controller.businessNameInputController,
                           label: AppStrings.ADD_BUSINESS_NAME,
                           isRequired: true,
                         ),
                         CustomInput_eng(
+                          inputaction: TextInputAction.next,
                           controller: controller.businessPhoneInputController,
                           label: AppStrings.ADD_BUSINESS_PHONE,
                           isRequired: true,
                           type: TextInputType.phone,
                         ),
                         CustomInput_eng(
+                          inputaction: TextInputAction.done,
                           controller: controller.businessAddressInputController,
                           label: AppStrings.ADD_BUSINESS_ADDRESS,
                           height: Dimensions.calcH(100),

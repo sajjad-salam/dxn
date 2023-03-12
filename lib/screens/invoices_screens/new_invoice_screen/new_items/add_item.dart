@@ -119,14 +119,17 @@ class NewItemScreen extends GetView<ItemsController> {
                 children: [
                   const Divider(),
                   CustomInput_eng(
+                    inputaction: TextInputAction.next,
                     label: "اسم المنتج",
                     controller: controller.itemNameInputController,
                   ),
                   CustomInput_eng(
+                      inputaction: TextInputAction.next,
                       label: AppStrings.ADD_ITEMS_PRICE,
                       controller: controller.itemPriceInputController,
                       type: TextInputType.number),
                   CustomInput_eng(
+                    inputaction: TextInputAction.done,
                     label: AppStrings.ADD_ITEMS_QTY,
                     controller: controller.itemQtyInputController,
                     type: TextInputType.number,
