@@ -2,6 +2,7 @@
 
 import 'dart:io';
 import 'dart:typed_data';
+// ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
 
 import 'package:get/get.dart';

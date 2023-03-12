@@ -36,13 +36,6 @@ class CustomerController extends GetxController {
 
   @override
   void onClose() {
-    if (customer != null) {
-      customerAddressInputController.clear();
-      customerEmailInputController.clear();
-      customerNameInputController.clear();
-      customerPhoneInputController.clear();
-      Get.find<InvoiceController>().setCustomer(customer!);
-    }
     super.onClose();
   }
 }

@@ -28,7 +28,7 @@ class InvoicePreviewScreen extends StatelessWidget {
           future: PdfInvoiceApi.generate(args['invoice']),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              dynamic _documentBytes = snapshot.data;
+              dynamic documentBytes = snapshot.data;
 
               return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -41,7 +41,7 @@ class InvoicePreviewScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(50)),
                           child: SfPdfViewer.memory(
-                            _documentBytes,
+                            documentBytes,
                             initialZoomLevel: 0.5,
                           )),
                     ),
@@ -59,26 +59,6 @@ class InvoicePreviewScreen extends StatelessWidget {
                             color: AppColors.kPrimaryColor,
                             textColor: Colors.white,
                           ),
-                          // InkWell(
-                          //   onTap: () {},
-                          //   splashColor: AppColors.kPrimaryLight,
-                          //   child: Container(
-                          //       padding: const EdgeInsets.symmetric(
-                          //           vertical: 10, horizontal: 16),
-                          //       decoration: BoxDecoration(
-                          //         border:
-                          //             Border.all(color: AppColors.kPrimaryDark),
-                          //         borderRadius: BorderRadius.circular(4),
-                          //       ),
-                          //       child: Text(
-                          //         AppStrings.HOME_BTN.toUpperCase(),
-                          //         style: TextStyle(
-                          //           color: AppColors.kPrimaryDark,
-                          //           fontWeight: FontWeight.bold,
-                          //           fontSize: Dimensions.calcH(15),
-                          //         ),
-                          //       )),
-                          // )
                         ],
                       ),
                     )

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../env/dimensions.dart';
 
@@ -34,12 +33,13 @@ class CustomText extends StatelessWidget {
       overflow: overflow ?? TextOverflow.ellipsis,
       textDirection: textdirection ?? TextDirection.ltr,
       textAlign: align,
-      style: GoogleFonts.nunito(
+      style: TextStyle(
+        fontFamily: "myfont",
         color: color,
         fontSize: fontSize ?? Dimensions.calcH(18),
         fontWeight: weight,
-        letterSpacing: spacing,
         height: height,
+        letterSpacing: spacing,
       ),
     );
   }

@@ -22,16 +22,16 @@ class ItemsController extends GetxController {
         itemPriceInputController.text.isEmpty ||
         itemQtyInputController.text.isEmpty) {
       Get.snackbar(
-        "Error",
-        "Please Fill all the required fields",
+        "خطأ",
+        "من فضلك املأ كل الحقول المطلوبة",
         snackPosition: SnackPosition.BOTTOM,
       );
       return false;
     } else if (!itemPriceInputController.text.isNum ||
         !itemQtyInputController.text.isNum) {
       Get.snackbar(
-        "Error",
-        "Item Price/Qty can only be a number",
+        "خطأ",
+        "السعر يجب ان يكون رقما",
         snackPosition: SnackPosition.BOTTOM,
       );
       return false;

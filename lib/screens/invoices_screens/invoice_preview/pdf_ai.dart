@@ -9,14 +9,14 @@ import '../../../models/invoice_model.dart';
 class PdfInvoiceApi {
   static Future<Uint8List> generate(Invoice invoice) async {
     const paymentTerms = '${15} days';
-    final titles = <String>['Invoice Number:', 'Invoice Date:', 'Due Date:'];
+    final titles = <String>['رقم الوصل:', 'تاريخ الوصل:', 'Due Date:'];
     final data = <String>[
       "100",
       "15",
       paymentTerms,
       "266",
     ];
-    final headers = ['Description', 'Quantity', 'Price per item', 'Total'];
+    final headers = ['التفاصيل', 'العدد', 'السعر', 'الكلي'];
     final invoices_data = [...invoice.items.map((e) => e.toList()).toList()];
     final pdf = Document();
     pdf.addPage(MultiPage(
@@ -65,14 +65,6 @@ class PdfInvoiceApi {
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(invoice.to.name,
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text(invoice.from.address!),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: List.generate(titles.length, (index) {
                     final title = titles[index];
                     final value = data[index];
@@ -89,7 +81,7 @@ class PdfInvoiceApi {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Invoice details',
+              'المنتجات',
               style: TextStyle(fontSize: 18),
             ),
             SizedBox(height: 0.8 * PdfPageFormat.cm),
@@ -123,7 +115,7 @@ class PdfInvoiceApi {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     buildText(
-                      title: 'Total amount due',
+                      title: 'الكلي',
                       titleStyle: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
@@ -142,32 +134,6 @@ class PdfInvoiceApi {
           ),
         ),
         SizedBox(height: 3 * PdfPageFormat.mm),
-        Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Payment Instructions",
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  Text(
-                    invoice.paymentInstructions,
-                  ),
-                ],
-              ),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: Image(
-                  MemoryImage(
-                    invoice.signature.buffer.asUint8List(),
-                  ),
-                  height: 80,
-                ),
-              )
-            ]),
       ],
       footer: (context) => Column(
         crossAxisAlignment: CrossAxisAlignment.center,

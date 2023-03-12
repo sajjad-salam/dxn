@@ -4,6 +4,7 @@ import '../../constants/colors.dart';
 import '../../env/dimensions.dart';
 import 'custom_text.dart';
 
+// ignore: must_be_immutable
 class CustomBtn extends StatelessWidget {
   final String label;
   final Function() action;

@@ -1,7 +1,6 @@
 import 'package:dxn/screens/invoices_screens/new_invoice_screen/new_items/widgets/custom_tablerow.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../../constants/colors.dart';
 import '../../../../constants/strings.dart';
 import '../../../../controllers/items_controller.dart';
@@ -13,7 +12,6 @@ import '../../../shared_widgets/custom_richText.dart';
 import '../../../shared_widgets/custom_text.dart';
 
 class NewItemScreen extends GetView<ItemsController> {
-  // var controller = Get.find<ItemsController>();
   const NewItemScreen({Key? key}) : super(key: key);
 
   @override
@@ -83,7 +81,10 @@ class NewItemScreen extends GetView<ItemsController> {
                       )
                     else
                       const Center(
-                        child: Text("You did not add any item yet!"),
+                        child: Text(
+                          "لا توجد اي منتجات ",
+                          style: TextStyle(fontFamily: "myfont", fontSize: 18),
+                        ),
                       ),
                     if (controller.itemsList.isNotEmpty)
                       SizedBox(
@@ -118,7 +119,7 @@ class NewItemScreen extends GetView<ItemsController> {
                 children: [
                   const Divider(),
                   CustomInput_eng(
-                    label: "Item name",
+                    label: "اسم المنتج",
                     controller: controller.itemNameInputController,
                   ),
                   CustomInput_eng(
@@ -146,12 +147,12 @@ class NewItemScreen extends GetView<ItemsController> {
             ),
           );
         },
+        backgroundColor: AppColors.kPrimaryColor,
         child: Icon(
           Icons.add,
           color: AppColors.kSecondaryColor,
           size: 35,
         ),
-        backgroundColor: AppColors.kPrimaryColor,
       ),
     );
   }

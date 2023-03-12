@@ -1,9 +1,7 @@
-import 'package:dxn/screens/invoices_screens/new_invoice_screen/payment_instructions/payment_instructions.dart';
 import 'package:dxn/screens/invoices_screens/new_invoice_screen/widgets/option_view_eng.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-
 import '../../../constants/colors.dart';
 import '../../../constants/strings.dart';
 import '../../../controllers/invoice_controller.dart';
@@ -55,20 +53,10 @@ class NewInvoiceScreen extends StatelessWidget {
                   return Column(
                     children: [
                       OptionView_eng(
-                        onTap: () {},
-                        title: AppStrings.NEW_INVOICE_TITLE + controller.id,
-                        subTitle: AppStrings.NEW_INVOICE_SUBTITLE +
-                            Functions.formatDate(
-                              DateTime.now(),
-                            ),
-                        showArrow: false,
-                      ),
-                      OptionView_eng(
                         onTap: () {
                           Get.toNamed("/add_business");
                         },
                         title: AppStrings.NEW_INVOICE_BUSINESS,
-                        subTitle: AppStrings.NEW_INVOICE_BUSINESS_SUBTITLE,
                         leading: SvgPicture.asset("assets/icons/business.svg"),
                         isComplete:
                             (controller.business != null) ? true : false,
@@ -76,58 +64,10 @@ class NewInvoiceScreen extends StatelessWidget {
                       ),
                       OptionView_eng(
                         onTap: () {
-                          Get.toNamed("/add_payer");
-                        },
-                        title: AppStrings.NEW_INVOICE_PAYER,
-                        subTitle: AppStrings.NEW_INVOICE_PAYER_SUBTITLE,
-                        leading:
-                            SvgPicture.asset("assets/icons/person_add.svg"),
-                        isComplete:
-                            (controller.customer != null) ? true : false,
-                        showArrow: (controller.customer != null) ? false : true,
-                      ),
-                      OptionView_eng(
-                        onTap: () {
                           Get.toNamed("/add_items");
                         },
                         title: AppStrings.NEW_INVOICE_ITEMS,
-                        subTitle: (controller.itemsList.isEmpty)
-                            ? AppStrings.NEW_INVOICE_ITEMS_SUBTITLE
-                            : "${controller.itemsList.length} have been added",
                         leading: SvgPicture.asset("assets/icons/add_item.svg"),
-                      ),
-                      OptionView_eng(
-                        onTap: () {
-                          if (controller.paymentInstructions == null) {
-                            Get.defaultDialog(
-                              title: AppStrings.ADD_PAYMENT_INSTRUCTIONS_TITLE,
-                              content: PaymentInstructions(),
-                            );
-                          }
-                        },
-                        title: AppStrings.NEW_INVOICE_PAYMENT,
-                        subTitle: AppStrings.NEW_INVOICE_PAYMENT_SUBTITLE,
-                        leading:
-                            SvgPicture.asset("assets/icons/payment_method.svg"),
-                        isComplete: (controller.paymentInstructions != null)
-                            ? true
-                            : false,
-                        showArrow: (controller.paymentInstructions != null)
-                            ? false
-                            : true,
-                      ),
-                      OptionView_eng(
-                        onTap: () {
-                          Get.toNamed("/sign_invoice");
-                        },
-                        title: AppStrings.NEW_INVOICE_SIGNATURE,
-                        subTitle: AppStrings.NEW_INVOICE_SIGNATURE_SUBTITLE,
-                        leading:
-                            SvgPicture.asset("assets/icons/signature_pen.svg"),
-                        isComplete:
-                            (controller.signature != null) ? true : false,
-                        showArrow:
-                            (controller.signature != null) ? false : true,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -136,17 +76,13 @@ class NewInvoiceScreen extends StatelessWidget {
                             label: AppStrings.PREVIEW_BTN,
                             action: () {
                               if (controller.business != null &&
-                                  controller.customer != null &&
-                                  controller.signature != null &&
-                                  controller.paymentInstructions != null &&
                                   controller.itemsList.isNotEmpty) {
                                 Invoice invoice =
                                     controller.generate_preview_invoice();
                                 Get.toNamed("/preview",
-                                    arguments: {"invoice": invoice});
+                                    arguments: {"القائمة": invoice});
                               } else {
-                                Get.snackbar("Error",
-                                    "Please enter all the required fields!",
+                                Get.snackbar("خطأ", "من فضلك اكمل كل الحقول",
                                     snackPosition: SnackPosition.BOTTOM);
                               }
                             },
@@ -159,10 +95,7 @@ class NewInvoiceScreen extends StatelessWidget {
                             color: AppColors.kPrimaryColor,
                             textColor: Colors.white,
                             action: () {
-                              if (controller.business != null &&
-                                  controller.customer != null &&
-                                  controller.signature != null &&
-                                  controller.paymentInstructions != null) {
+                              if (controller.business != null) {
                                 Invoice invoice =
                                     controller.generate_preview_invoice();
                                 Get.find<AllInvoiceController>()

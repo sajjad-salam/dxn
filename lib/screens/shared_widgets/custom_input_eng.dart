@@ -4,6 +4,7 @@ import '../../constants/colors.dart';
 import '../../env/dimensions.dart';
 import 'custom_richText.dart';
 
+// ignore: camel_case_types
 class CustomInput_eng extends StatelessWidget {
   final TextEditingController? controller;
   final TextInputType? type;

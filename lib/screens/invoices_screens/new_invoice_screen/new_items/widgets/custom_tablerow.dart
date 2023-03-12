@@ -53,24 +53,6 @@ TableRow CustomTableRow({required Item? item}) {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              // Container(
-              //   decoration: BoxDecoration(
-              //     borderRadius: BorderRadius.circular(5),
-              //     color: AppColors.kPrimaryColor,
-              //   ),
-              //   alignment: Alignment.center,
-              //   height: 30,
-              //   width: 30,
-              //   child: IconButton(
-              //     splashRadius: 18,
-              //     padding: const EdgeInsets.all(0),
-              //     onPressed: () {},
-              //     icon: Icon(
-              //       Icons.edit_sharp,
-              //       color: AppColors.kSecondaryColor,
-              //     ),
-              //   ),
-              // ),
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),

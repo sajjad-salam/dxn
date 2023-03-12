@@ -1,7 +1,6 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../env/dimensions.dart';
 
@@ -35,25 +34,17 @@ class CustomRichText extends StatelessWidget {
       textDirection: direction,
       text: TextSpan(
         text: text,
-        style: GoogleFonts.nunito(
-          color: color,
-          fontSize: fontSize ?? Dimensions.calcH(18),
-          fontWeight: weight,
-          letterSpacing: spacing,
-          height: height,
-        ),
+        style: TextStyle(
+            fontFamily: 'myfont',
+            height: height,
+            fontWeight: weight,
+            letterSpacing: spacing,
+            color: color,
+            fontSize: fontSize ?? Dimensions.calcH(18)),
         children: [
           ...children.toList(),
         ],
       ),
     );
-    // return Text(
-    //   text,
-    //   textAlign: TextAlign.center,
-    //   style: GoogleFonts.nunito(
-    //       color: color,
-    //       fontSize: fontSize ?? Dimensions.calcH(18),
-    //       fontWeight: weight),
-    // );
   }
 }

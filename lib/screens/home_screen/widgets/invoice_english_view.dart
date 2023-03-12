@@ -62,22 +62,6 @@ class InvoiceView_eng extends StatelessWidget {
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: CustomText(
-                            text: invoice.to.name,
-                            align: TextAlign.left,
-                            fontSize: Dimensions.calcH(18),
-                            weight: FontWeight.w600,
-                            color: Colors.grey.withOpacity(0.4),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: CustomText(
                             text: invoice.date,
                             align: TextAlign.left,
                             fontSize: Dimensions.calcH(18),

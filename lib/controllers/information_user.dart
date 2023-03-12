@@ -7,7 +7,6 @@ import 'invoice_controller.dart';
 class BusinessController extends GetxController {
   Business? business;
   TextEditingController businessNameInputController = TextEditingController();
-  TextEditingController businessEmailInputController = TextEditingController();
   TextEditingController businessPhoneInputController = TextEditingController();
   TextEditingController businessAddressInputController =
       TextEditingController();
@@ -15,7 +14,6 @@ class BusinessController extends GetxController {
   // validate input
   bool validate() {
     if (businessNameInputController.text.isEmpty ||
-        businessEmailInputController.text.isEmpty ||
         businessPhoneInputController.text.isEmpty ||
         businessAddressInputController.text.isEmpty) {
       Get.snackbar(
@@ -26,11 +24,10 @@ class BusinessController extends GetxController {
       return false;
     } else {
       business = Business(
-          name: businessNameInputController.text,
-          address: businessAddressInputController.text,
-          phone: businessPhoneInputController.text,
-          email: businessEmailInputController.text,
-          logo: Get.find<InvoiceController>().logo);
+        name: businessNameInputController.text,
+        address: businessAddressInputController.text,
+        phone: businessPhoneInputController.text,
+      );
       return true;
     }
   }
@@ -39,7 +36,6 @@ class BusinessController extends GetxController {
   void onClose() {
     if (business != null) {
       businessNameInputController.clear();
-      businessEmailInputController.clear();
       businessPhoneInputController.clear();
       businessAddressInputController.clear();
       Get.find<InvoiceController>().setBusiness(business!);
