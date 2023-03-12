@@ -1,11 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
-
 import 'dart:typed_data';
-
 import 'package:get/get.dart';
-
 import '../models/business_model.dart';
-import '../models/customer_model.dart';
 import '../models/invoice_model.dart';
 import '../models/item_model.dart';
 import '../utils/functions.dart';
@@ -24,29 +20,31 @@ class InvoiceController extends GetxController {
 
   void setItems(List<Item> val) async {
     itemsList.addAll(val);
-    await Future.delayed(const Duration(milliseconds: 20), () {
-      update();
-    });
+    await Future.delayed(
+      const Duration(milliseconds: 20),
+      () {
+        update();
+      },
+    );
   }
 
   void setPaymentInstructions(String val) async {
-    await Future.delayed(const Duration(milliseconds: 20), () {
-      update();
-    });
+    await Future.delayed(
+      const Duration(milliseconds: 20),
+      () {
+        update();
+      },
+    );
   }
 
   void setSignature(ByteData val) async {
-    await Future.delayed(const Duration(milliseconds: 20), () {
-      update();
-    });
+    await Future.delayed(
+      const Duration(milliseconds: 20),
+      () {
+        update();
+      },
+    );
   }
-
-  // void setBusinessLogo(Uint8List? val) async {
-  //   logo = val;
-  //   await Future.delayed(const Duration(milliseconds: 20), () {
-  //     update();
-  //   });
-  // }
 
   Invoice generate_preview_invoice() => Invoice(
         id: id,

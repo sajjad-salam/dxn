@@ -42,6 +42,4 @@ class BusinessController extends GetxController {
     }
     super.onClose();
   }
-  // logo controller
-  // upload logo
 }

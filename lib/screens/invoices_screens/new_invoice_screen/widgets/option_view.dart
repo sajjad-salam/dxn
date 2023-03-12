@@ -7,15 +7,16 @@ import '../../../../constants/colors.dart';
 import '../../../../env/dimensions.dart';
 import '../../../shared_widgets/custom_text.dart';
 
-class OptionView_eng extends StatelessWidget {
+class OptionView_ar extends StatelessWidget {
   final String title;
   final String? subTitle;
   final String? optionalText;
   final Widget? leading;
   final bool showArrow;
   final bool isComplete;
+
   final Function() onTap;
-  const OptionView_eng({
+  const OptionView_ar({
     required this.title,
     required this.onTap,
     this.subTitle,
@@ -36,23 +37,25 @@ class OptionView_eng extends StatelessWidget {
             vertical: Dimensions.calcH(8), horizontal: Dimensions.calcW(8)),
         padding: EdgeInsets.symmetric(
             vertical: Dimensions.calcH(5), horizontal: Dimensions.calcW(8)),
-        height: Dimensions.calcH(100),
+        height: Dimensions.calcH(200),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: const Color.fromARGB(255, 161, 144, 124),
+          // color: Colors.white,
           borderRadius: BorderRadius.circular(18),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            (leading != null)
-                ? Container(
-                    margin: EdgeInsets.only(
-                      right: Dimensions.calcW(15),
+            (showArrow)
+                ? Expanded(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: SvgPicture.asset(
+                        "assets/icons/arrow_left.svg",
+                        height: 35,
+                      ),
                     ),
-                    padding: EdgeInsets.all(Dimensions.calcH(10)),
-                    width: 55,
-                    child: leading,
                   )
                 : const Text(""),
             Expanded(
@@ -60,20 +63,26 @@ class OptionView_eng extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: CustomText(
-                            text: title,
-                            align: TextAlign.left,
-                            fontSize: Dimensions.calcH(19),
-                            weight: FontWeight.bold,
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 40,
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          // flex: 3,
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: CustomText(
+                              text: title,
+                              align: TextAlign.left,
+                              fontSize: Dimensions.calcH(23),
+                              weight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   SizedBox(
                     height: Dimensions.calcH(5),
@@ -82,7 +91,7 @@ class OptionView_eng extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Align(
-                          alignment: Alignment.centerLeft,
+                          alignment: Alignment.centerRight,
                           child: CustomText(
                             text: subTitle ?? "",
                             align: TextAlign.left,
@@ -98,7 +107,7 @@ class OptionView_eng extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Align(
-                          alignment: Alignment.centerLeft,
+                          alignment: Alignment.centerRight,
                           child: CustomText(
                             text: optionalText ?? "",
                             align: TextAlign.left,
@@ -113,24 +122,14 @@ class OptionView_eng extends StatelessWidget {
                 ],
               ),
             ),
-            (showArrow)
-                ? Expanded(
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: SvgPicture.asset(
-                        "assets/icons/arrow_right.svg",
-                        height: 30,
-                      ),
+            (leading != null)
+                ? Container(
+                    margin: EdgeInsets.only(
+                      left: Dimensions.calcW(15),
                     ),
-                  )
-                : const Text(""),
-            (isComplete && !showArrow)
-                ? Expanded(
-                    child: SvgPicture.asset(
-                      "assets/icons/success_circle.svg",
-                      height: 30,
-                      color: Colors.green[600],
-                    ),
+                    padding: EdgeInsets.all(Dimensions.calcH(10)),
+                    width: 70,
+                    child: leading,
                   )
                 : const Text(""),
           ],
