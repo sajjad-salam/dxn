@@ -37,7 +37,7 @@ class AppRouting {
     ),
     GetPage(
       name: AppLinks.NEW_ITEM,
-      page: () => const NewItemScreen(),
+      page: () => NewItemScreen(),
       transition: Transition.rightToLeftWithFade,
       binding: ItemsBidning(),
     ),

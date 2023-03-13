@@ -37,17 +37,7 @@ class InvoiceController extends GetxController {
     );
   }
 
-  void setSignature(ByteData val) async {
-    await Future.delayed(
-      const Duration(milliseconds: 20),
-      () {
-        update();
-      },
-    );
-  }
-
   Invoice generate_preview_invoice() => Invoice(
-        id: id,
         date: Functions.formatDate(DateTime.now()),
         from: business!,
         items: itemsList,

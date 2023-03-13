@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 
 import '../../../env/dimensions.dart';
 import '../../../models/invoice_model.dart';
-import '../../../utils/functions.dart';
-import '../../invoices_screens/invoice_preview/pdf_ai.dart';
 import '../../shared_widgets/custom_text.dart';
 
 class InvoiceView_eng extends StatelessWidget {
@@ -18,10 +16,6 @@ class InvoiceView_eng extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () async => Functions.saveInvoice(
-        name: "invoice-${invoice.id}.pdf",
-        fileBytes: await PdfInvoiceApi.generate(invoice),
-      ),
       child: Container(
         margin: EdgeInsets.symmetric(
             vertical: Dimensions.calcH(20), horizontal: Dimensions.calcW(8)),
@@ -42,19 +36,7 @@ class InvoiceView_eng extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Row(
-                    children: [
-                      Expanded(
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: CustomText(
-                            text: "Invoice ID #${invoice.id}",
-                            align: TextAlign.left,
-                            fontSize: Dimensions.calcH(21),
-                            weight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
+                    children: [],
                   ),
                   Row(
                     children: [

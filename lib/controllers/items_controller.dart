@@ -12,22 +12,13 @@ class ItemsController extends GetxController {
   TextEditingController itemNameInputController = TextEditingController();
   TextEditingController itemPriceInputController = TextEditingController();
   TextEditingController itemQtyInputController = TextEditingController();
+  TextEditingController itempointInputController = TextEditingController();
+  TextEditingController itemnameInputController = TextEditingController();
 
   get itemsList => _itemsList;
   get total => _total;
-  // validate form;
-
   bool validate() {
-    if (itemNameInputController.text.isEmpty ||
-        itemPriceInputController.text.isEmpty ||
-        itemQtyInputController.text.isEmpty) {
-      Get.snackbar(
-        "خطأ",
-        "من فضلك املأ كل الحقول المطلوبة",
-        snackPosition: SnackPosition.BOTTOM,
-      );
-      return false;
-    } else if (!itemPriceInputController.text.isNum ||
+    if (!itemPriceInputController.text.isNum ||
         !itemQtyInputController.text.isNum) {
       Get.snackbar(
         "خطأ",
@@ -37,6 +28,7 @@ class ItemsController extends GetxController {
       return false;
     } else {
       add_item(
+        item_point: double.parse(itempointInputController.text),
         item_name: itemNameInputController.text,
         item_price: double.parse(itemPriceInputController.text),
         item_qty: int.parse(itemQtyInputController.text),
@@ -44,6 +36,7 @@ class ItemsController extends GetxController {
       itemNameInputController.clear();
       itemPriceInputController.clear();
       itemQtyInputController.clear();
+      itempointInputController.clear();
       update();
       return true;
     }
@@ -52,6 +45,7 @@ class ItemsController extends GetxController {
   // add new item
   void add_item(
       {required String item_name,
+      required double item_point,
       required double item_price,
       required int item_qty}) {
     _itemsList.add(

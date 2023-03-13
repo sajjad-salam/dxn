@@ -11,14 +11,14 @@ class BusinessController extends GetxController {
   TextEditingController businessAddressInputController =
       TextEditingController();
 
-  // validate input
+  // validate input => for information user
   bool validate() {
     if (businessNameInputController.text.isEmpty ||
         businessPhoneInputController.text.isEmpty ||
         businessAddressInputController.text.isEmpty) {
       Get.snackbar(
-        "Error",
-        "Please Fill all the required fields",
+        "خطأ",
+        "من فضلك املأ كل الحقول",
         snackPosition: SnackPosition.BOTTOM,
       );
       return false;

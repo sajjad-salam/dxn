@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../constants/strings.dart';
 import '../../controllers/invoices_controller.dart';
+import '../../test.dart';
 import '../shared_widgets/appbar_eng_view.dart';
 
 class HomeScreen extends GetView<AllInvoiceController> {
@@ -20,13 +21,17 @@ class HomeScreen extends GetView<AllInvoiceController> {
             backgroundColor: const Color.fromARGB(255, 124, 107, 88),
             elevation: 0,
           ),
-          child: const Text(
-            'اضافة وصل جديد',
-            style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w500,
-                fontFamily: "myfont",
-                fontSize: 18),
+          child: Stack(
+            children: const [
+              Text(
+                'اضافة وصل جديد',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: "myfont",
+                    fontSize: 18),
+              ),
+            ],
           ),
           onPressed: () {
             Get.toNamed("/new");

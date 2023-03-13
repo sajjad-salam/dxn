@@ -5,11 +5,12 @@ import 'package:get/get.dart';
 import 'env/routing.dart';
 
 void main() {
-  runApp(GetMaterialApp(
-    debugShowCheckedModeBanner: false,
-    theme: ThemeData(scaffoldBackgroundColor: Colors.white),
-    // home: TestScreen(),
-    initialRoute: "/",
-    getPages: AppRouting.ROUTES,
-  ));
+  runApp(
+    GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(scaffoldBackgroundColor: Colors.white),
+      initialRoute: "/",
+      getPages: AppRouting.ROUTES,
+    ),
+  );
 }

@@ -20,8 +20,8 @@ class PdfInvoiceApi {
     final invoices_data = [...invoice.items.map((e) => e.toList()).toList()];
     final pdf = Document();
     pdf.addPage(MultiPage(
-      header: (context) => Text("INNVOICE ID ${invoice.id}",
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+      header: (context) =>
+          Text("", style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
       build: (context) => [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,7 +53,7 @@ class PdfInvoiceApi {
                   width: 80,
                   child: BarcodeWidget(
                     barcode: Barcode.qrCode(),
-                    data: invoice.id,
+                    data: '',
                   ),
                 ),
               ],

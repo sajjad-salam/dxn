@@ -26,7 +26,7 @@ class CustomInput_eng extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(
-        vertical: Dimensions.calcH(15),
+        vertical: Dimensions.calcH(2),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -46,7 +46,7 @@ class CustomInput_eng extends StatelessWidget {
                 : [],
           ),
           SizedBox(
-            height: Dimensions.calcH(10),
+            height: Dimensions.calcH(5),
           ),
           Container(
             color: AppColors.kSecondaryColor,
