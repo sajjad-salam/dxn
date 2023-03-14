@@ -1,63 +1,35 @@
 import 'package:flutter/material.dart';
 
-class MyPopup extends StatefulWidget {
+class MyDropdownList extends StatefulWidget {
   @override
-  _MyPopupState createState() => _MyPopupState();
+  _MyDropdownListState createState() => _MyDropdownListState();
 }
 
-class _MyPopupState extends State<MyPopup> {
-  final _textEditingController = TextEditingController();
-
-  @override
-  void dispose() {
-    _textEditingController.dispose();
-    super.dispose();
-  }
+class _MyDropdownListState extends State<MyDropdownList> {
+  String _selectedItem = 'Option 1';
+  List<String> _items = [
+    'Option 1',
+    'Option 2',
+    'Option 3',
+    'Option 4',
+    'Option 5'
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: ElevatedButton(
-        child: Text('اضافة'),
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: Text('Enter Text'),
-                content: TextField(
-                  controller: _textEditingController,
-                  decoration: InputDecoration(hintText: 'Enter text here'),
-                ),
-                actions: <Widget>[
-                  TextButton(
-                    child: Text('CANCEL'),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                  TextButton(
-                    child: Text('OK'),
-                    onPressed: () {
-                      Navigator.of(context).pop({
-                        'text': _textEditingController.text,
-                      });
-                    },
-                  ),
-                ],
-              );
-            },
-          ).then(
-            (value) {
-              if (value != null) {
-                // Do something with the entered text and elements
-                print(value['text']);
-                print(value['elements']);
-              }
-            },
-          );
-        },
-      ),
+    return DropdownButton(
+      value: _selectedItem,
+      items: _items.map((String value) {
+        return DropdownMenuItem(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+      onChanged: (String? newValue) {
+        setState(() {
+          _selectedItem = newValue!;
+        });
+      },
     );
   }
 }

@@ -2,12 +2,12 @@
 
 import 'package:get/get.dart';
 
+import '../ad_item.dart';
 import '../screens/home_screen/home_binding.dart';
 import '../screens/home_screen/home_screen.dart';
 import '../screens/invoices_screens/invoice_preview/invoice_preview_screen.dart';
 import '../screens/invoices_screens/new_invoice_screen/new_invoice_binding.dart';
 import '../screens/invoices_screens/new_invoice_screen/new_invoice_screen.dart';
-import '../screens/invoices_screens/new_invoice_screen/new_items/add_item.dart';
 import '../screens/invoices_screens/new_invoice_screen/new_items/items_binding.dart';
 import '../screens/invoices_screens/new_invoice_screen/new_user/new_user_information.dart';
 import '../screens/splash_screen/splash_screen.dart';
@@ -37,7 +37,7 @@ class AppRouting {
     ),
     GetPage(
       name: AppLinks.NEW_ITEM,
-      page: () => NewItemScreen(),
+      page: () => adminpage(),
       transition: Transition.rightToLeftWithFade,
       binding: ItemsBidning(),
     ),
