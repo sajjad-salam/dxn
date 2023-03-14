@@ -31,9 +31,39 @@ class SplashScreen extends StatelessWidget {
             SizedBox(
               height: Dimensions.calcH(5),
             ),
-            CustomBtn(
-              label: AppStrings.START_BTN,
-              action: () {
+            const Text(
+              AppStrings.SYS_TR,
+              style: TextStyle(
+                  fontFamily: "myfont", fontSize: 18, color: Colors.white),
+            ),
+            InkWell(
+              child: Image.asset('assets/icons/tr.png', height: 150),
+              onTap: () {
+                Get.offAndToNamed("/home");
+              },
+            ),
+            // IconButton(
+            //   splashRadius: 100,
+            //   iconSize: 200,
+            //   icon: Image.asset("assets/icons/tr.png"),
+            //   // icon: Ink.image(
+            //   // image: Image.asset(""),
+            //   // child: Image.asset("assets/icons/tr.png"),
+            //   // image:  ,
+            //   // ),
+            //   onPressed: () {
+            //     // do something when the button is pressed
+            //     debugPrint('Hi there');
+            //   },
+            // ),
+            const Text(
+              AppStrings.SYS_ML,
+              style: TextStyle(
+                  fontFamily: "myfont", fontSize: 18, color: Colors.white),
+            ),
+            InkWell(
+              child: Image.asset('assets/icons/mi.png', height: 150),
+              onTap: () {
                 Get.offAndToNamed("/home");
               },
             )

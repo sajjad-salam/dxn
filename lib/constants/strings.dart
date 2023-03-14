@@ -11,7 +11,8 @@ class AppStrings {
   static const String REMOVE_BTN = "حذف";
   static const String CLEAR_BTN = "تنضيف";
   static const String DOWNLOAD_BTN = "تحميل";
-  static const String START_BTN = "السستم التركي";
+  static const String SYS_TR = " السستم التركي";
+  static const String SYS_ML = " السستم الماليزي";
   static const String HOME_TITLE = "الصفحة الرئيسية";
   static const String NEW_INVOICE_PAGE_TITLE = "جديد";
   static const String NEW_INVOICE_TITLE = "رقم القائمة";

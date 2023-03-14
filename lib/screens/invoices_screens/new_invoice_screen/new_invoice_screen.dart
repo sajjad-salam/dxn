@@ -53,6 +53,13 @@ class NewInvoiceScreen extends StatelessWidget {
                   children: [
                     OptionView_ar(
                       onTap: () {
+                        Get.toNamed("/add_items");
+                      },
+                      title: AppStrings.NEW_INVOICE_ITEMS,
+                      leading: SvgPicture.asset("assets/icons/add_item.svg"),
+                    ),
+                    OptionView_ar(
+                      onTap: () {
                         Get.toNamed("/add_business");
                       },
                       title: AppStrings.NEW_INVOICE_BUSINESS,
@@ -63,13 +70,6 @@ class NewInvoiceScreen extends StatelessWidget {
                       ),
                       isComplete: (controller.business != null) ? true : false,
                       showArrow: (controller.business != null) ? false : true,
-                    ),
-                    OptionView_ar(
-                      onTap: () {
-                        Get.toNamed("/add_items");
-                      },
-                      title: AppStrings.NEW_INVOICE_ITEMS,
-                      leading: SvgPicture.asset("assets/icons/add_item.svg"),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,

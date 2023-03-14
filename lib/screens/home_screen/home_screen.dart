@@ -15,26 +15,53 @@ class HomeScreen extends GetView<AllInvoiceController> {
         title: AppStrings.HOME_TITLE,
       ),
       body: Center(
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color.fromARGB(255, 124, 107, 88),
-            elevation: 0,
-          ),
-          child: Stack(
-            children: const [
-              Text(
-                'اضافة وصل جديد',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: "myfont",
-                    fontSize: 18),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color.fromARGB(255, 124, 107, 88),
+                elevation: 0,
               ),
-            ],
-          ),
-          onPressed: () {
-            Get.toNamed("/new");
-          },
+              child: Stack(
+                children: const [
+                  Text(
+                    'اضافة وصل جديد',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: "myfont",
+                        fontSize: 18),
+                  ),
+                ],
+              ),
+              onPressed: () {
+                Get.toNamed("/new");
+              },
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color.fromARGB(255, 124, 107, 88),
+                elevation: 0,
+              ),
+              child: Stack(
+                children: const [
+                  Text(
+                    'رجوع',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: "myfont",
+                        fontSize: 18),
+                  ),
+                ],
+              ),
+              onPressed: () {
+                // Navigator.pushNamed(context);
+                Get.toNamed("/");
+              },
+            ),
+          ],
         ),
       ),
     );
