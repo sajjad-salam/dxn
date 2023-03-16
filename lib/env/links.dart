@@ -9,4 +9,5 @@ class AppLinks {
   static const String NEW_ITEM = "/add_items";
   static const String SIGNATURE = "/sign_invoice";
   static const String PREVIEW = "/preview";
+  static const String TABLE = "/table";
 }

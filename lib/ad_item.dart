@@ -1,7 +1,9 @@
 import 'package:dxn/screens/invoices_screens/new_invoice_screen/new_items/widgets/custom_tablerow.dart';
 import 'package:dxn/screens/shared_widgets/appbar_eng_view.dart';
+import 'package:dxn/screens/shared_widgets/custom_btn.dart';
 import 'package:dxn/screens/shared_widgets/custom_richText.dart';
 import 'package:dxn/screens/shared_widgets/custom_text.dart';
+import 'package:dxn/sys/sys_tr.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'constants/strings.dart';
@@ -32,18 +34,39 @@ class _adminpageState extends State<adminpage> {
   get itemsList => _itemsList;
   get total => _total;
   final RxList<Item> _itemsList = Get.find<InvoiceController>().itemsList;
-  String _selectedItem = 'Option 1';
+  Product_tr? selectedProduct;
+
+  int _quantity = 1;
+
   // ignore: prefer_final_fields
-  List<String> _items = [
-    'Option 1',
-    'Option 2',
-    'Option 3',
-    'Option 4',
-    'Option 5'
-  ];
+  List<String> _items = ['حليب', 'عصير', 'جبس', 'تمن', 'ببسي'];
+  List<int> number_of_item = [1, 2, 3, 4, 5];
+  int price_of_item = 0;
+  // ignore: non_constant_identifier_names
+  int point_of_item = 0;
+  int _select_number = 1;
+  int first_click_num = 0;
+  int first_click_item = 0;
+  void add_item(
+      {required String item_name,
+      required String item_point,
+      required String item_price,
+      required String item_qty}) {
+    _itemsList.add(
+      Item(
+        name: item_name,
+        price: item_price,
+        qty: item_qty,
+      ),
+    );
+    // update();
+    // calcTotal();
+  }
 
   @override
   Widget build(BuildContext context) {
+    // int totala = _quantity * selectedProduct!.price;
+    var valu = selectedProduct?.price.toDouble() ?? 0;
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 200, 182, 166),
       appBar: AppBar_eng(
@@ -95,45 +118,133 @@ class _adminpageState extends State<adminpage> {
               ],
             )
           else
-            // adminpage(),
-            SafeArea(
-              child: Column(
-                children: [
-                  const Center(
-                    child: Text(
-                      "لا توجد اي منتجات ",
-                      style: TextStyle(fontFamily: "myfont", fontSize: 18),
-                    ),
-                  ),
-                  DropdownButton(
-                    value: _selectedItem,
-                    items: _items.map((String value) {
-                      return DropdownMenuItem(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (String? newValue) {
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 80),
+                  child: DropdownButton<Product_tr>(
+                    value: selectedProduct,
+                    hint: const Text("اختيار منتج",
+                        style: TextStyle(
+                            fontFamily: "myfont",
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold)),
+                    onChanged: (Product_tr? value) {
                       setState(() {
-                        _selectedItem = newValue!;
-                        itemNameInputController.text = newValue;
+                        selectedProduct = value;
                       });
                     },
+                    items: products.map((Product_tr product) {
+                      return DropdownMenuItem<Product_tr>(
+                        value: product,
+                        child: Text(product.name),
+                      );
+                    }).toList(),
                   ),
-                  Center(
-                    child: ElevatedButton(
-                        child: const Text(
-                        'اضافة الى القائمة',
-                        style: TextStyle(fontFamily: "myfont"),
+                ),
+                DropdownButton(
+                  value: _quantity,
+                  hint: const Text("العدد"),
+                  items: List<DropdownMenuItem<int>>.generate(
+                    10,
+                    (index) => DropdownMenuItem<int>(
+                      value: index + 1,
+                      child: Text(
+                        "${index + 1}",
                       ),
-                      onPressed: () {
-                        // ignore: avoid_print
-                        print(itemNameInputController.text);
-                      },
                     ),
                   ),
-                ],
-              ),
+                  onChanged: (newValue) {
+                    setState(
+                      () {
+                        _quantity = newValue!;
+                      },
+                    );
+                  },
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: DataTable(
+                    dataRowHeight: 100,
+                    headingRowHeight: 50,
+                    border: TableBorder.symmetric(
+                        inside: const BorderSide(
+                            strokeAlign: 10, color: Colors.black54),
+                        outside: BorderSide.none),
+                    columns: const <DataColumn>[
+                      DataColumn(
+                          label: Text(
+                        'اسم المنتج',
+                        style: TextStyle(fontFamily: "myfont"),
+                      )),
+                      DataColumn(
+                          label: Text('العدد',
+                              style: TextStyle(fontFamily: "myfont"))),
+                      DataColumn(
+                          label: Text('النقاط',
+                              style: TextStyle(fontFamily: "myfont"))),
+                      DataColumn(
+                          label: Text('السعر',
+                              style: TextStyle(fontFamily: "myfont"))),
+                    ],
+                    rows: <DataRow>[
+                      DataRow(
+                        cells: <DataCell>[
+                          DataCell(Text("${selectedProduct?.name}")),
+                          DataCell(Text("$_quantity")),
+                          DataCell(Text('${selectedProduct?.point}')),
+                          DataCell(Text(
+                            '${valu * _quantity} د.ل',
+                            style: const TextStyle(fontSize: 12),
+                          )),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                // Spacer(),
+                Center(
+                  child: CustomBtn(
+                    action: () {
+                      setState(() {
+                        itemNameInputController.text = selectedProduct!.name;
+                        itemPriceInputController.text =
+                            selectedProduct!.price.toString();
+                        itempointInputController.text =
+                            selectedProduct!.point.toString();
+                        itemQtyInputController.text = _quantity.toString();
+                      });
+                      add_item(
+                          item_name: itemNameInputController.text,
+                          item_point: itempointInputController.text,
+                          item_price: itemPriceInputController.text,
+                          item_qty: itemQtyInputController.text);
+                    },
+                    label: 'اضافة',
+                  ),
+                ),
+                Center(
+                  child: CustomBtn(
+                    action: () {
+                      setState(() {});
+                      itemNameInputController.clear();
+                      itemPriceInputController.clear();
+                      itemQtyInputController.clear();
+                      itempointInputController.clear();
+                    },
+                    label: 'تنضيف',
+                  ),
+                ),
+                Center(
+                  child: CustomBtn(
+                    action: () {
+                      // Get.offAndToNamed("/table");
+                    },
+                    label: 'تيست',
+                  ),
+                ),
+              ],
             ),
           if (itemsList.isNotEmpty)
             SizedBox(

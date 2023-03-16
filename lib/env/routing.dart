@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'package:dxn/test.dart';
 import 'package:get/get.dart';
 
 import '../ad_item.dart';
@@ -45,5 +46,9 @@ class AppRouting {
       name: AppLinks.PREVIEW,
       page: () => InvoicePreviewScreen(),
     ),
+    // GetPage(
+    //   name: AppLinks.TABLE,
+    //   page: () => MyApp(),
+    // ),
   ];
 }

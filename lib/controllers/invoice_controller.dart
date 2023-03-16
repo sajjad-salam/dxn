@@ -40,8 +40,8 @@ class InvoiceController extends GetxController {
         date: Functions.formatDate(DateTime.now()),
         from: business!,
         items: itemsList,
-        total: itemsList.fold(0,
-            (previousValue, next) => previousValue + (next.price * next.qty)),
+        total: itemsList.fold(
+            0, (previousValue, next) => previousValue + (next.price as int)),
       );
   @override
   void onClose() {
