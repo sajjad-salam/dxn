@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import '../../constants/colors.dart';
 import '../../constants/strings.dart';
 import '../../env/dimensions.dart';
-import '../shared_widgets/custom_btn.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);

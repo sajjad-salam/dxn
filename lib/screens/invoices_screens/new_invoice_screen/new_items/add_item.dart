@@ -1,19 +1,18 @@
 import 'package:dxn/screens/invoices_screens/new_invoice_screen/new_items/widgets/custom_tablerow.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../constants/colors.dart';
 import '../../../../constants/strings.dart';
 import '../../../../controllers/items_controller.dart';
 import '../../../../env/dimensions.dart';
 
 import '../../../shared_widgets/appbar_eng_view.dart';
 
-import '../../../shared_widgets/custom_btn.dart';
-import '../../../shared_widgets/custom_input_eng.dart';
 import '../../../shared_widgets/custom_richText.dart';
 import '../../../shared_widgets/custom_text.dart';
 
 class NewItemScreen extends GetView<ItemsController> {
+  const NewItemScreen({super.key});
+
   // String prod = list.first;
   // final Product product;
 

@@ -1,3 +1,4 @@
+// ignore: camel_case_types
 class Product_tr {
   final int id, price;
   final double point;

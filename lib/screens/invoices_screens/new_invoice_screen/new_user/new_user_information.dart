@@ -15,7 +15,7 @@ class NewBusinessScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 200, 182, 166),
+      backgroundColor: const Color.fromARGB(255, 200, 182, 166),
       appBar: AppBar_eng(
         title: AppStrings.ADD_BUSINESS_TITLE,
         showBackArrow: true,

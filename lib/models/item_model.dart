@@ -7,5 +7,5 @@ class Item {
     required this.qty,
     required this.price,
   });
-  List<String> toList() => [name, "$qty", "\$${price}", ((price))];
+  List<String> toList() => [name, qty, "\$$price", ((price))];
 }

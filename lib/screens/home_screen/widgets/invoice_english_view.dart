@@ -36,9 +36,6 @@ class InvoiceView_eng extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Row(
-                    children: [],
-                  ),
-                  Row(
                     children: [
                       Expanded(
                         child: Align(

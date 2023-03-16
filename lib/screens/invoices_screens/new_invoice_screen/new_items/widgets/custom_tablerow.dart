@@ -40,7 +40,7 @@ TableRow CustomTableRow({required Item? item}) {
           alignment: Alignment.center,
           padding: const EdgeInsets.all(8),
           child: CustomText(
-            text: (item != null) ? "${item.qty}" : "-",
+            text: (item != null) ? item.qty : "-",
             fontSize: 13,
           ),
         ),

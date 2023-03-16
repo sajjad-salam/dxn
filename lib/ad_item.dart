@@ -38,19 +38,15 @@ class _adminpageState extends State<adminpage> {
 
   int _quantity = 1;
 
-  // ignore: prefer_final_fields
-  List<String> _items = ['حليب', 'عصير', 'جبس', 'تمن', 'ببسي'];
-  List<int> number_of_item = [1, 2, 3, 4, 5];
-  int price_of_item = 0;
   // ignore: non_constant_identifier_names
-  int point_of_item = 0;
-  int _select_number = 1;
-  int first_click_num = 0;
-  int first_click_item = 0;
   void add_item(
+      // ignore: non_constant_identifier_names
       {required String item_name,
+      // ignore: non_constant_identifier_names
       required String item_point,
+      // ignore: non_constant_identifier_names
       required String item_price,
+      // ignore: non_constant_identifier_names
       required String item_qty}) {
     _itemsList.add(
       Item(

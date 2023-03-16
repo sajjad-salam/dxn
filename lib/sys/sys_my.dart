@@ -1,3 +1,4 @@
+// ignore: camel_case_types
 class Product_mi {
   final int id, price;
   final double point;
@@ -13,6 +14,7 @@ class Product_mi {
 }
 
 // list of product_mis System turkey
+// ignore: non_constant_identifier_names
 List<Product_mi> product_mis_mi = [
   Product_mi(
       id: 1, point: 51.5, price: 180, name: "الفطر الريشي RG 90", image: ""),

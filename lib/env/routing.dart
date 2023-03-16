@@ -1,6 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:dxn/test.dart';
 import 'package:get/get.dart';
 
 import '../ad_item.dart';
@@ -38,7 +37,7 @@ class AppRouting {
     ),
     GetPage(
       name: AppLinks.NEW_ITEM,
-      page: () => adminpage(),
+      page: () => const adminpage(),
       transition: Transition.rightToLeftWithFade,
       binding: ItemsBidning(),
     ),
