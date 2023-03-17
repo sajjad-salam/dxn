@@ -8,6 +8,10 @@ class BusinessController extends GetxController {
   Business? business;
   TextEditingController businessNameInputController = TextEditingController();
   TextEditingController businessPhoneInputController = TextEditingController();
+  TextEditingController businessnamemmberInputController =
+      TextEditingController();
+  TextEditingController businessnumbermmberInputController =
+      TextEditingController();
   TextEditingController businessAddressInputController =
       TextEditingController();
 
@@ -15,6 +19,8 @@ class BusinessController extends GetxController {
   bool validate() {
     if (businessNameInputController.text.isEmpty ||
         businessPhoneInputController.text.isEmpty ||
+        businessnamemmberInputController.text.isEmpty ||
+        businessnumbermmberInputController.text.isEmpty ||
         businessAddressInputController.text.isEmpty) {
       Get.snackbar(
         "خطأ",
@@ -25,6 +31,8 @@ class BusinessController extends GetxController {
     } else {
       business = Business(
         name: businessNameInputController.text,
+        name_mmber: businessnamemmberInputController.text,
+        number_mmber: businessnumbermmberInputController.text,
         address: businessAddressInputController.text,
         phone: businessPhoneInputController.text,
       );
@@ -36,6 +44,8 @@ class BusinessController extends GetxController {
   void onClose() {
     if (business != null) {
       businessNameInputController.clear();
+      businessnamemmberInputController.clear();
+      businessnumbermmberInputController.clear();
       businessPhoneInputController.clear();
       businessAddressInputController.clear();
       Get.find<InvoiceController>().setBusiness(business!);

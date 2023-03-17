@@ -4,7 +4,7 @@ class AppStrings {
 // const STRINGS
   static const String TOTAL = "الكلي";
   static const String BACK_BTN = "رجوع";
-  static const String SAVE_BTN = "حفظ";
+  static const String NETX_BTN = "التالي";
   static const String PREVIEW_BTN = "مشاهدة";
   static const String ADD_BTN = "اضافة";
   static const String EDIT_BTN = "تعديل";
@@ -28,9 +28,9 @@ class AppStrings {
   static const String ADD_ITEMS_NAME = "الأسم";
   static const String ADD_ITEMS_PRICE = "الكلفة";
   static const String ADD_ITEMS_QTY = "العدد";
-  static const String ADD_ITEMS_ACTIONS = "خيارات";
+  static const String ADD_ITEMS_ACTIONS = "النقاط";
   static const String PREVIEW_TITLE = "المشاهدة";
   static const String PREVIEW_SAVE_BTN = "تحميل وحفض";
   static const String PREVIEW_NEW_BTN = "انشاء وصل جديد";
-  static const String ADD_PAYER_TITLE = "المنتجات";
+  static const String ADD_PAYER_TITLE = "اضافة منتج";
 }

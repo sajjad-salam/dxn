@@ -1,3 +1,5 @@
+import 'package:dxn/screens/home_screen/home_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -6,7 +8,8 @@ import '../../constants/strings.dart';
 import '../../env/dimensions.dart';
 
 class SplashScreen extends StatelessWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  // this is a system app turkey or malyzy if 1 turkey and if 2 maleyze
+  int system_app = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -38,23 +41,22 @@ class SplashScreen extends StatelessWidget {
             InkWell(
               child: Image.asset('assets/icons/tr.png', height: 150),
               onTap: () {
-                Get.offAndToNamed("/home");
+                // Get.offAndToNamed("/home");
+                system_app = 1;
+                print(system_app);
+
+                Navigator.push(
+                  context,
+                  CupertinoPageRoute<Widget>(
+                    builder: (BuildContext context) {
+                      return HomeScreen(
+                        sys: system_app,
+                      );
+                    },
+                  ),
+                );
               },
             ),
-            // IconButton(
-            //   splashRadius: 100,
-            //   iconSize: 200,
-            //   icon: Image.asset("assets/icons/tr.png"),
-            //   // icon: Ink.image(
-            //   // image: Image.asset(""),
-            //   // child: Image.asset("assets/icons/tr.png"),
-            //   // image:  ,
-            //   // ),
-            //   onPressed: () {
-            //     // do something when the button is pressed
-            //     debugPrint('Hi there');
-            //   },
-            // ),
             const Text(
               AppStrings.SYS_ML,
               style: TextStyle(
@@ -63,7 +65,18 @@ class SplashScreen extends StatelessWidget {
             InkWell(
               child: Image.asset('assets/icons/mi.png', height: 150),
               onTap: () {
-                Get.offAndToNamed("/home");
+                system_app = 2;
+                print(system_app);
+                Navigator.push(
+                  context,
+                  CupertinoPageRoute<Widget>(
+                    builder: (BuildContext context) {
+                      return HomeScreen(
+                        sys: system_app,
+                      );
+                    },
+                  ),
+                );
               },
             )
           ],

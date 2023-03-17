@@ -4,7 +4,13 @@ class Business {
   String? name;
   String? address;
   String? phone;
-  String? email;
-  Uint8List? logo;
-  Business({this.name, this.address, this.phone, this.email, this.logo});
+  String? name_mmber;
+  String? number_mmber;
+
+  Business(
+      {this.name,
+      this.address,
+      this.phone,
+      this.name_mmber,
+      this.number_mmber});
 }

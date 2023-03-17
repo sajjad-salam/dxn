@@ -50,7 +50,7 @@ class InvoicePreviewScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           CustomBtn(
-                            label: AppStrings.SAVE_BTN,
+                            label: "حفظ",
                             action: () {
                               Get.find<AllInvoiceController>()
                                   .createNewInvoice(args["invoice"]);

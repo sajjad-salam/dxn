@@ -9,17 +9,21 @@ import '../../../../shared_widgets/custom_text.dart';
 
 //note
 TableRow CustomTableRow({required Item? item}) {
-  ItemsController controller = Get.find();
+  ItemsController controller = Get.put(ItemsController());
+  final peice = double.parse(item!.price);
+  final number = double.parse(item!.qty);
+  final point = double.parse(item!.point);
+
   return TableRow(
     children: <Widget>[
       TableCell(
         verticalAlignment: TableCellVerticalAlignment.middle,
         child: Container(
           alignment: Alignment.centerLeft,
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.all(0),
           child: CustomText(
             text: (item != null) ? item.name : "null",
-            fontSize: 13,
+            fontSize: 12,
           ),
         ),
       ),
@@ -29,8 +33,8 @@ TableRow CustomTableRow({required Item? item}) {
           alignment: Alignment.center,
           padding: const EdgeInsets.all(8),
           child: CustomText(
-            text: (item != null) ? "\$${item.price}" : "-",
-            fontSize: 13,
+            text: (item != null) ? " \د\.\ل ${peice * number} " : "-",
+            fontSize: 12,
           ),
         ),
       ),
@@ -41,7 +45,7 @@ TableRow CustomTableRow({required Item? item}) {
           padding: const EdgeInsets.all(8),
           child: CustomText(
             text: (item != null) ? item.qty : "-",
-            fontSize: 13,
+            fontSize: 12,
           ),
         ),
       ),
@@ -49,10 +53,11 @@ TableRow CustomTableRow({required Item? item}) {
         verticalAlignment: TableCellVerticalAlignment.middle,
         child: Container(
           alignment: Alignment.centerLeft,
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.all(5),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              Text((item != null) ? "${point * number}" : "-"),
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),

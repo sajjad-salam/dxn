@@ -1,12 +1,15 @@
 import 'package:dxn/screens/invoices_screens/new_invoice_screen/new_items/widgets/custom_tablerow.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../constants/colors.dart';
 import '../../../../constants/strings.dart';
 import '../../../../controllers/items_controller.dart';
 import '../../../../env/dimensions.dart';
 
 import '../../../shared_widgets/appbar_eng_view.dart';
 
+import '../../../shared_widgets/custom_btn.dart';
+import '../../../shared_widgets/custom_input_eng.dart';
 import '../../../shared_widgets/custom_richText.dart';
 import '../../../shared_widgets/custom_text.dart';
 
@@ -105,7 +108,7 @@ class NewItemScreen extends GetView<ItemsController> {
                         Align(
                           alignment: Alignment.bottomRight,
                           child: CustomRichText(
-                            text: "${AppStrings.TOTAL} : \$",
+                            text: "${AppStrings.TOTAL} : \د\.\ل",
                             children: [
                               TextSpan(
                                   text:
@@ -121,61 +124,61 @@ class NewItemScreen extends GetView<ItemsController> {
           ),
         ),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     Get.defaultDialog(
-      //       title: AppStrings.ADD_ITEMS_DIALOG_TITLE,
-      //       content: SingleChildScrollView(
-      //         child: Column(
-      //           children: [
-      //             const Divider(),
-      //             CustomInput_eng(
-      //               height: 40,
-      //               inputaction: TextInputAction.next,
-      //               label: "اسم المنتج",
-      //               controller: controller.itemNameInputController,
-      //             ),
-      //             CustomInput_eng(
-      //                 height: 40,
-      //                 inputaction: TextInputAction.next,
-      //                 label: AppStrings.ADD_ITEMS_PRICE,
-      //                 controller: controller.itemPriceInputController,
-      //                 type: TextInputType.number),
-      //             CustomInput_eng(
-      //               height: 40,
-      //               inputaction: TextInputAction.next,
-      //               label: AppStrings.ADD_ITEMS_QTY,
-      //               controller: controller.itemQtyInputController,
-      //               type: TextInputType.number,
-      //             ),
-      //             CustomInput_eng(
-      //               height: 40,
-      //               inputaction: TextInputAction.done,
-      //               label: "النقاط",
-      //               controller: controller.itempointInputController,
-      //               type: TextInputType.number,
-      //             ),
-      //             CustomBtn(
-      //               label: AppStrings.ADD_BTN,
-      //               action: () {
-      //                 bool isValid = controller.validate();
-      //                 if (isValid) {}
-      //               },
-      //               color: AppColors.kPrimaryColor,
-      //               textColor: Colors.white,
-      //             ),
-      //           ],
-      //         ),
-      //       ),
-      //     );
-      //   },
-      //   backgroundColor: AppColors.kPrimaryColor,
-      //   child: Icon(
-      //     Icons.add,
-      //     color: AppColors.kSecondaryColor,
-      //     size: 35,
-      //   ),
-      // ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.defaultDialog(
+            title: AppStrings.ADD_ITEMS_DIALOG_TITLE,
+            content: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const Divider(),
+                  CustomInput_eng(
+                    height: 40,
+                    inputaction: TextInputAction.next,
+                    label: "اسم المنتج",
+                    controller: controller.itemNameInputController,
+                  ),
+                  CustomInput_eng(
+                      height: 40,
+                      inputaction: TextInputAction.next,
+                      label: AppStrings.ADD_ITEMS_PRICE,
+                      controller: controller.itemPriceInputController,
+                      type: TextInputType.number),
+                  CustomInput_eng(
+                    height: 40,
+                    inputaction: TextInputAction.next,
+                    label: AppStrings.ADD_ITEMS_QTY,
+                    controller: controller.itemQtyInputController,
+                    type: TextInputType.number,
+                  ),
+                  CustomInput_eng(
+                    height: 40,
+                    inputaction: TextInputAction.done,
+                    label: "النقاط",
+                    controller: controller.itempointInputController,
+                    type: TextInputType.number,
+                  ),
+                  CustomBtn(
+                    label: AppStrings.ADD_BTN,
+                    action: () {
+                      bool isValid = controller.validate();
+                      if (isValid) {}
+                    },
+                    color: AppColors.kPrimaryColor,
+                    textColor: Colors.white,
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+        backgroundColor: AppColors.kPrimaryColor,
+        child: Icon(
+          Icons.add,
+          color: AppColors.kSecondaryColor,
+          size: 35,
+        ),
+      ),
     );
   }
 }

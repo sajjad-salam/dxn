@@ -1,3 +1,5 @@
+import 'package:dxn/screens/invoices_screens/new_invoice_screen/new_invoice_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../constants/strings.dart';
@@ -5,7 +7,8 @@ import '../../controllers/invoices_controller.dart';
 import '../shared_widgets/appbar_eng_view.dart';
 
 class HomeScreen extends GetView<AllInvoiceController> {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({required this.sys});
+  final int sys;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +39,17 @@ class HomeScreen extends GetView<AllInvoiceController> {
                 ],
               ),
               onPressed: () {
-                Get.toNamed("/new");
+                // Get.toNamed("/new");
+                Navigator.push(
+                  context,
+                  CupertinoPageRoute<Widget>(
+                    builder: (BuildContext context) {
+                      return NewInvoiceScreen(
+                        system: sys,
+                      );
+                    },
+                  ),
+                );
               },
             ),
             ElevatedButton(

@@ -3,6 +3,7 @@
 import 'package:get/get.dart';
 
 import '../ad_item.dart';
+import '../items_page.dart';
 import '../screens/home_screen/home_binding.dart';
 import '../screens/home_screen/home_screen.dart';
 import '../screens/invoices_screens/invoice_preview/invoice_preview_screen.dart';
@@ -17,37 +18,37 @@ class AppRouting {
   static final ROUTES = [
     GetPage(
       name: AppLinks.SPLASHSCREEN,
-      page: () => const SplashScreen(),
+      page: () => SplashScreen(),
     ),
-    GetPage(
-        name: AppLinks.HOME,
-        page: () => const HomeScreen(),
-        transition: Transition.circularReveal,
-        binding: HomeBinding()),
-    GetPage(
-      name: AppLinks.NEW_INVOICE,
-      page: () => const NewInvoiceScreen(),
-      transition: Transition.fadeIn,
-      binding: NewInvoiceBinding(),
-    ),
+    // GetPage(
+    //     name: AppLinks.HOME,
+    //     page: () =>  HomeScreen(sys: ),
+    //     transition: Transition.circularReveal,
+    //     binding: HomeBinding()),
+    // GetPage(
+    //   name: AppLinks.NEW_INVOICE,
+    //   page: () => const NewInvoiceScreen(),
+    //   transition: Transition.fadeIn,
+    //   binding: NewInvoiceBinding(),
+    // ),
     GetPage(
       name: AppLinks.NEW_BUSINESS,
       page: () => const NewBusinessScreen(),
       transition: Transition.rightToLeftWithFade,
     ),
-    GetPage(
-      name: AppLinks.NEW_ITEM,
-      page: () => const adminpage(),
-      transition: Transition.rightToLeftWithFade,
-      binding: ItemsBidning(),
-    ),
+    // GetPage(
+    //   name: AppLinks.NEW_ITEM,
+    //   page: () => const adminpage(),
+    //   transition: Transition.rightToLeftWithFade,
+    //   binding: ItemsBidning(),
+    // ),
     GetPage(
       name: AppLinks.PREVIEW,
       page: () => InvoicePreviewScreen(),
     ),
     // GetPage(
-    //   name: AppLinks.TABLE,
-    //   page: () => MyApp(),
+    //   name: "item_page",
+    //   page: () => item_page(),
     // ),
   ];
 }

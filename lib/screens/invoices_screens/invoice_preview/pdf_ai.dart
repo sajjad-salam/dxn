@@ -30,24 +30,6 @@ class PdfInvoiceApi {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    (invoice.from.logo != null)
-                        ? Image(
-                            MemoryImage(invoice.from.logo!),
-                            height: 80,
-                            width: 80,
-                          )
-                        : Text(""),
-                    SizedBox(height: 1 * PdfPageFormat.cm),
-                    Text(invoice.from.name!,
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                    SizedBox(height: 1 * PdfPageFormat.mm),
-                    Text(invoice.from.address!),
-                  ],
-                ),
                 Container(
                   height: 80,
                   width: 80,
@@ -120,7 +102,7 @@ class PdfInvoiceApi {
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
                       ),
-                      value: "\$${invoice.total}",
+                      value: "\د\.\ل${invoice.total}",
                       unite: true,
                     ),
                     SizedBox(height: 2 * PdfPageFormat.mm),
@@ -135,19 +117,6 @@ class PdfInvoiceApi {
         ),
         SizedBox(height: 3 * PdfPageFormat.mm),
       ],
-      footer: (context) => Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Divider(),
-          SizedBox(height: 8 * PdfPageFormat.mm),
-          buildSimpleText(title: 'Address', value: invoice.from.address!),
-          SizedBox(height: 5 * PdfPageFormat.mm),
-          buildSimpleText(
-              title: '',
-              value:
-                  "email: ${invoice.from.email!} / tel: ${invoice.from.phone!}"),
-        ],
-      ),
     ));
     Uint8List bytes = await pdf.save();
     return bytes;

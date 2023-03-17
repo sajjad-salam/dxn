@@ -42,6 +42,7 @@ class ItemsController extends GetxController {
       required String item_qty}) {
     _itemsList.add(
       Item(
+        point: item_point,
         name: item_name,
         price: item_price,
         qty: item_qty,
