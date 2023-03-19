@@ -41,7 +41,9 @@ class InvoiceController extends GetxController {
         from: business!,
         items: itemsList,
         total: itemsList.fold(
-            0, (previousValue, next) => previousValue + (next.price as int)),
+            0,
+            (previousValue, next) =>
+                previousValue + (double.parse(next.price))),
       );
   @override
   void onClose() {

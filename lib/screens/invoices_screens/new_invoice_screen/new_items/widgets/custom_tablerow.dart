@@ -11,8 +11,8 @@ import '../../../../shared_widgets/custom_text.dart';
 TableRow CustomTableRow({required Item? item}) {
   ItemsController controller = Get.put(ItemsController());
   final peice = double.parse(item!.price);
-  final number = double.parse(item!.qty);
-  final point = double.parse(item!.point);
+  final number = double.parse(item.qty);
+  final point = double.parse(item.point);
 
   return TableRow(
     children: <Widget>[
@@ -22,6 +22,7 @@ TableRow CustomTableRow({required Item? item}) {
           alignment: Alignment.centerLeft,
           padding: const EdgeInsets.all(0),
           child: CustomText(
+            // ignore: unnecessary_null_comparison
             text: (item != null) ? item.name : "null",
             fontSize: 12,
           ),
@@ -33,7 +34,8 @@ TableRow CustomTableRow({required Item? item}) {
           alignment: Alignment.center,
           padding: const EdgeInsets.all(8),
           child: CustomText(
-            text: (item != null) ? " \د\.\ل ${peice * number} " : "-",
+            // ignore: unnecessary_null_comparison
+            text: (item != null) ? " د.ل ${peice * number} " : "-",
             fontSize: 12,
           ),
         ),
@@ -44,6 +46,7 @@ TableRow CustomTableRow({required Item? item}) {
           alignment: Alignment.center,
           padding: const EdgeInsets.all(8),
           child: CustomText(
+            // ignore: unnecessary_null_comparison
             text: (item != null) ? item.qty : "-",
             fontSize: 12,
           ),
@@ -57,6 +60,7 @@ TableRow CustomTableRow({required Item? item}) {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              // ignore: unnecessary_null_comparison
               Text((item != null) ? "${point * number}" : "-"),
               Container(
                 decoration: BoxDecoration(
@@ -70,9 +74,11 @@ TableRow CustomTableRow({required Item? item}) {
                   splashRadius: 18,
                   padding: const EdgeInsets.all(0),
                   onPressed: () {
+                    // ignore: unnecessary_null_comparison
                     (item != null)
                         ? controller.remove_item(item: item)
                         : print("null");
+                    // Get.back();
                   },
                   icon: const Icon(
                     Icons.delete,

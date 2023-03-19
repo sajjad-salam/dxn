@@ -1,9 +1,7 @@
 import 'package:dxn/items_page.dart';
-import 'package:dxn/screens/invoices_screens/new_invoice_screen/new_items/widgets/custom_tablerow.dart';
 import 'package:dxn/screens/shared_widgets/appbar_eng_view.dart';
 import 'package:dxn/screens/shared_widgets/custom_btn.dart';
 import 'package:dxn/screens/shared_widgets/custom_richText.dart';
-import 'package:dxn/screens/shared_widgets/custom_text.dart';
 import 'package:dxn/sys/sys_my.dart';
 import 'package:dxn/sys/sys_tr.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,10 +15,11 @@ import 'models/item_model.dart';
 
 // ignore: unused_import, camel_case_types
 class adminpage extends StatefulWidget {
-  const adminpage({required this.syste});
+  const adminpage({super.key, required this.syste});
   final int syste;
 
   @override
+  // ignore: no_logic_in_create_state
   State<adminpage> createState() => _adminpageState(syst: syste);
 }
 
@@ -28,23 +27,34 @@ class adminpage extends StatefulWidget {
 class _adminpageState extends State<adminpage> {
   _adminpageState({required this.syst});
   final int syst;
+
   final RxDouble _total = 0.00.obs;
+  // ignore: non_constant_identifier_names
+  final RxDouble _total_point = 0.00.obs;
   TextEditingController itemNameInputController = TextEditingController();
   TextEditingController itemPriceInputController = TextEditingController();
   TextEditingController itemQtyInputController = TextEditingController();
   TextEditingController itempointInputController = TextEditingController();
   get itemsList => _itemsList;
   get total => _total;
+  // ignore: non_constant_identifier_names
+  get total_po => _total_point;
   final RxList<Item> _itemsList = Get.find<InvoiceController>().itemsList;
 
   int _quantity = 1;
 
   Product_tr? selectedProduct;
+  // ignore: non_constant_identifier_names
   Product_mi? selectedProduct_mi;
+  // ignore: non_constant_identifier_names
   void add_item(
+      // ignore: non_constant_identifier_names
       {required String item_name,
+      // ignore: non_constant_identifier_names
       required String item_point,
+      // ignore: non_constant_identifier_names
       required String item_price,
+      // ignore: non_constant_identifier_names
       required String item_qty}) {
     _itemsList.add(
       Item(
@@ -54,18 +64,28 @@ class _adminpageState extends State<adminpage> {
         qty: item_qty,
       ),
     );
-    // update();
-    // calcTotal();
+    calcTotal();
+    calcTotal_point();
   }
+
+  void calcTotal() => _total.value = _itemsList.fold(
+      0,
+      (previousValue, next) =>
+          previousValue + (double.parse(next.price) * double.parse(next.qty)));
+  // ignore: non_constant_identifier_names
+  void calcTotal_point() => _total_point.value = _itemsList.fold(
+      0,
+      (previousValue, next) =>
+          previousValue + (double.parse(next.point) * double.parse(next.qty)));
 
   String chose = "اختيار منتج";
 
   @override
   Widget build(BuildContext context) {
-    var price_it = selectedProduct?.price.toDouble() ?? 0;
-    var point_it = selectedProduct?.point.toDouble() ?? 0;
-    var price_it_mi = selectedProduct_mi?.price.toDouble() ?? 0;
-    var point_it_mi = selectedProduct_mi?.point.toDouble() ?? 0;
+    var priceIt = selectedProduct?.price.toDouble() ?? 0;
+    var pointIt = selectedProduct?.point.toDouble() ?? 0;
+    var priceItMi = selectedProduct_mi?.price.toDouble() ?? 0;
+    var pointItMi = selectedProduct_mi?.point.toDouble() ?? 0;
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 200, 182, 166),
       appBar: AppBar_eng(
@@ -119,6 +139,8 @@ class _adminpageState extends State<adminpage> {
                   onSubmitted: (value) {
                     setState(() {
                       _quantity = int.parse(value);
+                      calcTotal();
+                      calcTotal_point();
                     });
                   },
                   textInputAction: TextInputAction.done,
@@ -162,9 +184,9 @@ class _adminpageState extends State<adminpage> {
                         cells: <DataCell>[
                           DataCell(Text("${selectedProduct?.name}")),
                           DataCell(Text("$_quantity")),
-                          DataCell(Text('${point_it * _quantity}')),
+                          DataCell(Text('${pointIt * _quantity}')),
                           DataCell(Text(
-                            '${price_it * _quantity} د.ل',
+                            '${priceIt * _quantity} د.ل',
                             style: const TextStyle(fontSize: 12),
                           )),
                         ],
@@ -183,6 +205,9 @@ class _adminpageState extends State<adminpage> {
                           itempointInputController.text =
                               selectedProduct!.point.toString();
                           itemQtyInputController.text = _quantity.toString();
+                          calcTotal();
+                          calcTotal_point();
+                          // update();
                         });
                         add_item(
                             item_name: itemNameInputController.text,
@@ -197,7 +222,11 @@ class _adminpageState extends State<adminpage> {
                 Center(
                   child: CustomBtn(
                     action: () {
-                      setState(() {});
+                      setState(() {
+                        calcTotal();
+                        calcTotal_point();
+                        // update();
+                      });
                       itemNameInputController.clear();
                       itemPriceInputController.clear();
                       itemQtyInputController.clear();
@@ -210,6 +239,12 @@ class _adminpageState extends State<adminpage> {
                 Center(
                   child: CustomBtn(
                     action: () {
+                      calcTotal();
+                      calcTotal_point();
+                      // update();
+                      setState(() {
+                        _total.value = _total.value;
+                      });
                       Navigator.push(
                         context,
                         CupertinoPageRoute<Widget>(
@@ -313,9 +348,9 @@ class _adminpageState extends State<adminpage> {
                         cells: <DataCell>[
                           DataCell(Text("${selectedProduct_mi?.name}")),
                           DataCell(Text("$_quantity")),
-                          DataCell(Text('${point_it_mi * _quantity}')),
+                          DataCell(Text('${pointItMi * _quantity}')),
                           DataCell(Text(
-                            '${price_it_mi * _quantity} د.ل',
+                            '${priceItMi * _quantity} د.ل',
                             style: const TextStyle(fontSize: 12),
                           )),
                         ],

@@ -49,21 +49,23 @@ class ItemsController extends GetxController {
       ),
     );
     update();
-    // calcTotal();
+    calcTotal();
   }
 
   void remove_item({required Item item}) {
     _itemsList.remove(item);
     update();
-    // calcTotal();
+    calcTotal();
   }
 
   void clear_items() {
     _itemsList.clear();
     update();
-    // calcTotal();
+    calcTotal();
   }
 
-  // void calcTotal() => _total.value = _itemsList.fold(
-  //     0, (previousValue, next) => previousValue + (next.price));
+  void calcTotal() => _total.value = _itemsList.fold(
+      0,
+      (previousValue, next) =>
+          previousValue + (double.parse(next.price) * double.parse(next.qty)));
 }

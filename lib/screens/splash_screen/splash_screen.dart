@@ -1,15 +1,18 @@
 import 'package:dxn/screens/home_screen/home_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import '../../constants/colors.dart';
 import '../../constants/strings.dart';
 import '../../env/dimensions.dart';
 
+// ignore: must_be_immutable
 class SplashScreen extends StatelessWidget {
   // this is a system app turkey or malyzy if 1 turkey and if 2 maleyze
+  // ignore: non_constant_identifier_names
   int system_app = 0;
+
+  SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,10 +44,7 @@ class SplashScreen extends StatelessWidget {
             InkWell(
               child: Image.asset('assets/icons/tr.png', height: 150),
               onTap: () {
-                // Get.offAndToNamed("/home");
                 system_app = 1;
-                print(system_app);
-
                 Navigator.push(
                   context,
                   CupertinoPageRoute<Widget>(
@@ -57,6 +57,7 @@ class SplashScreen extends StatelessWidget {
                 );
               },
             ),
+            //system milz
             const Text(
               AppStrings.SYS_ML,
               style: TextStyle(
@@ -66,7 +67,6 @@ class SplashScreen extends StatelessWidget {
               child: Image.asset('assets/icons/mi.png', height: 150),
               onTap: () {
                 system_app = 2;
-                print(system_app);
                 Navigator.push(
                   context,
                   CupertinoPageRoute<Widget>(
@@ -78,7 +78,7 @@ class SplashScreen extends StatelessWidget {
                   ),
                 );
               },
-            )
+            ),
           ],
         ),
       ),

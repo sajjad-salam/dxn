@@ -70,59 +70,6 @@ class NewInvoiceScreen extends StatelessWidget {
                       title: AppStrings.NEW_INVOICE_ITEMS,
                       leading: SvgPicture.asset("assets/icons/add_item.svg"),
                     ),
-                    // OptionView_ar(
-                    //   onTap: () {
-                    //     Get.toNamed("/add_business");
-                    //   },
-                    //   title: AppStrings.NEW_INVOICE_BUSINESS,
-                    //   leading: SvgPicture.asset(
-                    //     "assets/icons/business.svg",
-                    //     height: 100,
-                    //     width: 100,
-                    //   ),
-                    //   isComplete: (controller.business != null) ? true : false,
-                    //   showArrow: (controller.business != null) ? false : true,
-                    // ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   children: [
-                    //     CustomBtn(
-                    //       label: AppStrings.PREVIEW_BTN,
-                    //       action: () {
-                    //         if (controller.business != null &&
-                    //             controller.itemsList.isNotEmpty) {
-                    //           Invoice invoice =
-                    //               controller.generate_preview_invoice();
-                    //           Get.toNamed("/preview",
-                    //               arguments: {"القائمة": invoice});
-                    //         } else {
-                    //           Get.snackbar("خطأ", "من فضلك اكمل كل الحقول",
-                    //               snackPosition: SnackPosition.BOTTOM);
-                    //         }
-                    //       },
-                    //     ),
-                    //     SizedBox(
-                    //       width: Dimensions.calcW(20),
-                    //     ),
-                    //     CustomBtn(
-                    //       label: AppStrings.SAVE_BTN,
-                    //       color: AppColors.kPrimaryColor,
-                    //       textColor: Colors.white,
-                    //       action: () {
-                    //         if (controller.business != null) {
-                    //           Invoice invoice =
-                    //               controller.generate_preview_invoice();
-                    //           Get.find<AllInvoiceController>()
-                    //               .createNewInvoice(invoice);
-                    //           Get.back();
-                    //         } else {
-                    //           Get.snackbar("خطأ", "من فضلك املأ كل الحقول",
-                    //               snackPosition: SnackPosition.BOTTOM);
-                    //         }
-                    //       },
-                    //     ),
-                    //   ],
-                    // )
                   ],
                 );
               },

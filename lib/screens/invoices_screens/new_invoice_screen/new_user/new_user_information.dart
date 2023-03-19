@@ -1,19 +1,32 @@
+import 'dart:collection';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_state_manager/src/simple/list_notifier.dart';
 
 import '../../../../constants/colors.dart';
 import '../../../../constants/strings.dart';
 import '../../../../controllers/information_user.dart';
+import '../../../../controllers/invoice_controller.dart';
 import '../../../../env/dimensions.dart';
 import '../../../../invoce_page.dart';
+import '../../../../models/item_model.dart';
 import '../../../shared_widgets/appbar_eng_view.dart';
 import '../../../shared_widgets/custom_btn.dart';
 import '../../../shared_widgets/custom_input_eng.dart';
 
 class NewBusinessScreen extends StatelessWidget {
-  const NewBusinessScreen({Key? key, this.Business}) : super(key: key);
-  final Business;
+  // const NewBusinessScreen({Key? key, this.Business}) : super(key: key);
+  // final Business;
+  get itemsList => _itemsList;
+  final RxDouble _total = 0.00.obs;
+  get total => _total;
+  final RxList<Item> _itemsList = Get.find<InvoiceController>().itemsList;
+  void calcTotal() => _total.value = _itemsList.fold(
+      0,
+      (previousValue, next) =>
+          previousValue + (double.parse(next.price) * double.parse(next.qty)));
 
   @override
   Widget build(BuildContext context) {
@@ -86,12 +99,13 @@ class NewBusinessScreen extends StatelessWidget {
                       action: () {
                         bool isValid = controller.validate();
                         if (isValid) {
-                          // Get.back();
+                          calcTotal();
+
                           Navigator.push(
                             context,
                             CupertinoPageRoute<Widget>(
                               builder: (BuildContext context) {
-                                return invoce_page(
+                                return invo(
                                   name_user: controller
                                       .businessNameInputController.text,
                                   address: controller
