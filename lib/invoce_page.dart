@@ -3,8 +3,6 @@ import 'dart:collection';
 import 'dart:ui' as ui;
 
 import 'dart:typed_data';
-import 'package:dxn/test.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:dxn/screens/invoices_screens/new_invoice_screen/new_items/widgets/custom_tablerow.dart';
@@ -16,14 +14,11 @@ import 'package:dxn/sys/sys_tr.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/list_notifier.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:screenshot/screenshot.dart';
 import 'constants/strings.dart';
 import 'controllers/invoice_controller.dart';
 import 'env/dimensions.dart';
 import 'models/item_model.dart';
-import 'package:path_provider/path_provider.dart';
-import 'dart:io';
 
 // ignore: camel_case_types
 class invo extends StatefulWidget {
@@ -86,12 +81,13 @@ class _invoState extends State<invo> {
   TextEditingController itempointInputController = TextEditingController();
   final _screenshotController = ScreenshotController();
   final ScreenshotController screenshotController = ScreenshotController();
+  // ignore: non_constant_identifier_names
   void _CaptureScreenShot() async {
     //get paint bound of your app screen or the widget which is wrapped with RepaintBoundary.
     RenderRepaintBoundary bound =
         _key.currentContext!.findRenderObject() as RenderRepaintBoundary;
     if (bound.debugNeedsPaint) {
-      Timer(Duration(seconds: 1), () => _CaptureScreenShot());
+      Timer(const Duration(seconds: 1), () => _CaptureScreenShot());
       return null;
     }
     ui.Image image = await bound.toImage();
@@ -99,11 +95,12 @@ class _invoState extends State<invo> {
     // this will save image screenshot in gallery
     if (byteData != null) {
       Uint8List pngBytes = byteData.buffer.asUint8List();
+      // ignore: unused_local_variable
       final resultsave = await ImageGallerySaver.saveImage(
           Uint8List.fromList(pngBytes),
           quality: 90,
           name: 'screenshot-${DateTime.now()}.png');
-      print(resultsave);
+      // print(resultsave);
     }
   }
 
