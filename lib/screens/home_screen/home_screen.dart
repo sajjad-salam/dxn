@@ -7,7 +7,7 @@ import '../../controllers/invoices_controller.dart';
 import '../shared_widgets/appbar_eng_view.dart';
 
 class HomeScreen extends GetView<AllInvoiceController> {
-  const HomeScreen({required this.sys});
+  const HomeScreen({super.key, required this.sys});
   final int sys;
 
   @override

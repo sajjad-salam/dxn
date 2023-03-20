@@ -1,9 +1,6 @@
-import 'dart:collection';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/list_notifier.dart';
 
 import '../../../../constants/colors.dart';
 import '../../../../constants/strings.dart';
@@ -16,6 +13,7 @@ import '../../../shared_widgets/appbar_eng_view.dart';
 import '../../../shared_widgets/custom_btn.dart';
 import '../../../shared_widgets/custom_input_eng.dart';
 
+// ignore: use_key_in_widget_constructors
 class NewBusinessScreen extends StatelessWidget {
   // const NewBusinessScreen({Key? key, this.Business}) : super(key: key);
   // final Business;

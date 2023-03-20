@@ -7,14 +7,10 @@ import 'package:get/get.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/strings.dart';
 import '../../../controllers/invoice_controller.dart';
-import '../../../controllers/invoices_controller.dart';
-import '../../../env/dimensions.dart';
-import '../../../models/invoice_model.dart';
 import '../../shared_widgets/appbar_eng_view.dart';
-import '../../shared_widgets/custom_btn.dart';
 
 class NewInvoiceScreen extends StatelessWidget {
-  const NewInvoiceScreen({required this.system});
+  const NewInvoiceScreen({super.key, required this.system});
   final int system;
 
   @override

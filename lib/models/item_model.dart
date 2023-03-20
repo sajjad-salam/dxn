@@ -9,5 +9,5 @@ class Item {
     required this.point,
     required this.price,
   });
-  List<String> toList() => [point, name, qty, "\د\.\ل\$$price", ((price))];
+  List<String> toList() => [point, name, qty, ".د.ل\$$price", ((price))];
 }

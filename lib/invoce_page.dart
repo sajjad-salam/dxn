@@ -1,5 +1,6 @@
 import 'dart:collection';
-
+import 'dart:typed_data';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:dxn/screens/invoices_screens/new_invoice_screen/new_items/widgets/custom_tablerow.dart';
 import 'package:dxn/screens/shared_widgets/appbar_eng_view.dart';
 import 'package:dxn/screens/shared_widgets/custom_btn.dart';
@@ -9,6 +10,7 @@ import 'package:dxn/sys/sys_tr.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/list_notifier.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:screenshot/screenshot.dart';
 import 'constants/strings.dart';
 import 'controllers/invoice_controller.dart';
@@ -77,7 +79,6 @@ class _invoState extends State<invo> {
   TextEditingController itemQtyInputController = TextEditingController();
   TextEditingController itempointInputController = TextEditingController();
   final _screenshotController = ScreenshotController();
-  GlobalKey _globalKey = GlobalKey();
 
   Future<String?> takeScreenShot() async {
     try {
@@ -94,7 +95,6 @@ class _invoState extends State<invo> {
 
       return filePath;
     } catch (e) {
-      print(e);
       return null;
     }
   }
@@ -106,6 +106,7 @@ class _invoState extends State<invo> {
 
   final RxList<Item> _itemsList = Get.find<InvoiceController>().itemsList;
   Product_tr? selectedProduct;
+  // ignore: non_constant_identifier_names
   final RxDouble _total_point = 0.00.obs;
 
   // ignore: unused_field
@@ -134,7 +135,7 @@ class _invoState extends State<invo> {
   }
 
   void _notifyUpdate() {
-    for (var element in _updaters!) {
+    for (var element in _updaters) {
       element!();
     }
   }
@@ -146,8 +147,8 @@ class _invoState extends State<invo> {
   }
 
   void _notifyIdUpdate(Object id) {
-    if (_updatersGroupIds!.containsKey(id)) {
-      final listGroup = _updatersGroupIds![id]!;
+    if (_updatersGroupIds.containsKey(id)) {
+      final listGroup = _updatersGroupIds[id]!;
       for (var item in listGroup) {
         item();
       }
@@ -166,6 +167,7 @@ class _invoState extends State<invo> {
     return true;
   }
 
+  // ignore: non_constant_identifier_names
   void add_item(
       // ignore: non_constant_identifier_names
       {required String item_name,
@@ -201,106 +203,103 @@ class _invoState extends State<invo> {
       (previousValue, next) =>
           previousValue + (double.parse(next.point) * double.parse(next.qty)));
 
+  @override
   Widget build(BuildContext context) {
-    var priceIt = selectedProduct?.price.toDouble() ?? 0;
-    var pointIt = selectedProduct?.price.toDouble() ?? 0;
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 200, 182, 166),
       appBar: AppBar_eng(
         title: "الوصل",
         showBackArrow: true,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Table(
-              border: TableBorder.all(),
-              children: [
-                TableRow(
-                  children: <Widget>[
-                    TableCell(
-                      child: Container(
-                        padding: const EdgeInsets.all(8),
-                        child:
-                            const CustomText(text: AppStrings.ADD_ITEMS_NAME),
-                      ),
+      body: Column(
+        children: [
+          Table(
+            border: TableBorder.all(),
+            children: [
+              TableRow(
+                children: <Widget>[
+                  TableCell(
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      child: const CustomText(text: AppStrings.ADD_ITEMS_NAME),
                     ),
-                    TableCell(
-                      child: Container(
-                        padding: const EdgeInsets.all(8),
-                        child:
-                            const CustomText(text: AppStrings.ADD_ITEMS_PRICE),
-                      ),
+                  ),
+                  TableCell(
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      child: const CustomText(text: AppStrings.ADD_ITEMS_PRICE),
                     ),
-                    TableCell(
-                      child: Container(
-                        padding: const EdgeInsets.all(8),
-                        child: const CustomText(text: AppStrings.ADD_ITEMS_QTY),
-                      ),
+                  ),
+                  TableCell(
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      child: const CustomText(text: AppStrings.ADD_ITEMS_QTY),
                     ),
-                    TableCell(
-                      child: Container(
-                        padding: const EdgeInsets.all(8),
-                        child: const CustomText(
-                            text: AppStrings.ADD_ITEMS_ACTIONS),
-                      ),
+                  ),
+                  TableCell(
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      child:
+                          const CustomText(text: AppStrings.ADD_ITEMS_ACTIONS),
                     ),
-                  ],
-                ),
-                ...itemsList
-                    .map((itemx) => CustomTableRow(
-                          item: itemx,
-                        ))
-                    .toList(),
-              ],
-            ),
-            if (itemsList.isNotEmpty)
-              SizedBox(
-                height: Dimensions.calcH(25),
-              ),
-            if (itemsList.isNotEmpty) const Divider(),
-            if (itemsList.isNotEmpty)
-              Align(
-                alignment: Alignment.bottomRight,
-                child: CustomRichText(
-                  text: "${AppStrings.TOTAL} : \د\.\ل",
-                  children: [TextSpan(text: "${_total.value.toString()}")],
-                ),
-              ),
-            Text(
-              "$gift",
-              style: TextStyle(color: col, fontFamily: "myfont", fontSize: 18),
-            ),
-            Container(
-              margin: const EdgeInsets.all(8),
-              alignment: Alignment.centerLeft,
-              // padding: EdgeInsets.only(left: 1),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              child: Row(
-                textDirection: TextDirection.rtl,
-                children: [
-                  Text(
-                    "$name_user   :الأسم\n $address   :العنوان\n $phone_number   :رقم الهاتف\n $name_of_mmber   :اسم العضوية\n$number_mmber   :رقم العضوية",
-                    style: const TextStyle(fontFamily: "myfont", fontSize: 18),
                   ),
                 ],
               ),
+              ...itemsList
+                  .map(
+                    (itemx) => CustomTableRow(
+                      item: itemx,
+                    ),
+                  )
+                  .toList(),
+            ],
+          ),
+          if (itemsList.isNotEmpty)
+            SizedBox(
+              height: Dimensions.calcH(25),
             ),
-            CustomBtn(
-              label: "حساب المبلغ الكلي",
-              action: () {
-                // print(total);
-                if (_total.value == 0) {
-                  calcTotal();
-                  calcTotal_point();
+          if (itemsList.isNotEmpty) const Divider(),
+          if (itemsList.isNotEmpty)
+            Align(
+              alignment: Alignment.bottomRight,
+              child: CustomRichText(
+                text: "${AppStrings.TOTAL} : .د.ل",
+                children: [TextSpan(text: _total.value.toString())],
+              ),
+            ),
+          Text(
+            gift,
+            style: TextStyle(color: col, fontFamily: "myfont", fontSize: 18),
+          ),
+          Container(
+            margin: const EdgeInsets.all(8),
+            alignment: Alignment.centerLeft,
+            // padding: EdgeInsets.only(left: 1),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: Row(
+              textDirection: TextDirection.rtl,
+              children: [
+                Text(
+                  "$name_user   :الأسم\n $address   :العنوان\n $phone_number   :رقم الهاتف\n $name_of_mmber   :اسم العضوية\n$number_mmber   :رقم العضوية",
+                  style: const TextStyle(fontFamily: "myfont", fontSize: 18),
+                ),
+              ],
+            ),
+          ),
+          CustomBtn(
+            label: "حساب المبلغ الكلي",
+            action: () {
+              if (_total.value == 0) {
+                calcTotal();
+                calcTotal_point();
 
-                  update();
-                }
-                setState(() {
-                  double tot = _total.value;
+                update();
+              }
+              setState(
+                () {
                   if (_total_point.value > 100) {
                     gift = "مبروك التوصيل مجانا";
                     col = Colors.green;
@@ -308,31 +307,45 @@ class _invoState extends State<invo> {
                     gift = "اكمل 100 نقطة لتحصل على توصيل مجانا";
                     col = Colors.red;
                   }
-                });
-                update();
-                print(_total.value);
-              },
+                },
+              );
+              update();
+              // print(_total.value);
+            },
+          ),
+          Screenshot(
+            controller: _screenshotController,
+            child: const Text(
+              'اضغط على الزر بألأسفل لأخذ لقطة شاشة',
+              style: TextStyle(
+                  fontSize: 14, color: Colors.white, fontFamily: "myfont"),
             ),
-            Screenshot(
-              controller: _screenshotController,
-              child: const Text(
-                'اضغط على الزر بألأسفل لأخذ لقطة شاشة',
-                style: TextStyle(
-                    fontSize: 14, color: Colors.white, fontFamily: "myfont"),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           final screenshotPath = await takeScreenShot();
-          if (screenshotPath != null) {
+          final image = await _screenshotController.capture();
+          if (image != null) {
+            // ignore: avoid_print
             print('Screenshot saved at $screenshotPath');
+            await savaimage(Uint8List(5));
           }
         },
         child: const Icon(Icons.camera),
       ),
     );
   }
+}
+
+Future<String> savaimage(Uint8List bytes) async {
+  await [Permission.storage].request();
+  final time = DateTime.now()
+      .toIso8601String()
+      .replaceAll(".", "-")
+      .replaceAll(":", "-");
+  final name = "screenshot_$time";
+  final result = await ImageGallerySaver.saveImage(bytes, name: name);
+  return result("pathfile");
 }

@@ -11,7 +11,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/list_notifier.dart';
-import 'constants/colors.dart';
 import 'constants/strings.dart';
 import 'controllers/invoice_controller.dart';
 import 'env/dimensions.dart';
@@ -29,6 +28,7 @@ class item_page extends StatefulWidget {
 class _adminpageState extends State<item_page> {
   // const adminpage({Key? key}) : super(key: key);
   final RxDouble _total = 0.00.obs;
+  // ignore: non_constant_identifier_names
   final RxDouble _total_point = 0.00.obs;
 
   TextEditingController itemNameInputController = TextEditingController();
@@ -37,14 +37,16 @@ class _adminpageState extends State<item_page> {
   TextEditingController itempointInputController = TextEditingController();
   get itemsList => _itemsList;
   get total => _total;
+  // ignore: non_constant_identifier_names
   get total_po => _total_point;
 
   final RxList<Item> _itemsList = Get.find<InvoiceController>().itemsList;
   Product_tr? selectedProduct;
-  int _quantity = 1;
-  HashMap<Object?, List<GetStateUpdate>>? _updatersGroupIds =
+  // ignore: unused_field
+  final int _quantity = 1;
+  final HashMap<Object?, List<GetStateUpdate>> _updatersGroupIds =
       HashMap<Object?, List<GetStateUpdate>>();
-  List<GetStateUpdate?>? _updaters = <GetStateUpdate?>[];
+  final List<GetStateUpdate?> _updaters = <GetStateUpdate?>[];
 
   void update([List<Object>? ids, bool condition = true]) {
     if (!condition) {
@@ -66,7 +68,7 @@ class _adminpageState extends State<item_page> {
   }
 
   void _notifyUpdate() {
-    for (var element in _updaters!) {
+    for (var element in _updaters) {
       element!();
     }
   }
@@ -78,8 +80,8 @@ class _adminpageState extends State<item_page> {
   }
 
   void _notifyIdUpdate(Object id) {
-    if (_updatersGroupIds!.containsKey(id)) {
-      final listGroup = _updatersGroupIds![id]!;
+    if (_updatersGroupIds.containsKey(id)) {
+      final listGroup = _updatersGroupIds[id]!;
       for (var item in listGroup) {
         item();
       }
@@ -88,6 +90,7 @@ class _adminpageState extends State<item_page> {
 
   bool _debugAssertNotDisposed() {
     assert(() {
+      // ignore: unnecessary_null_comparison
       if (_updaters == null) {
         throw FlutterError('''A $runtimeType was used after being disposed.\n
 'Once you have called dispose() on a $runtimeType, it can no longer be used.''');
@@ -97,10 +100,15 @@ class _adminpageState extends State<item_page> {
     return true;
   }
 
+  // ignore: non_constant_identifier_names
   void add_item(
+      // ignore: non_constant_identifier_names
       {required String item_name,
+      // ignore: non_constant_identifier_names
       required String item_point,
+      // ignore: non_constant_identifier_names
       required String item_price,
+      // ignore: non_constant_identifier_names
       required String item_qty}) {
     _itemsList.add(
       Item(
@@ -116,119 +124,118 @@ class _adminpageState extends State<item_page> {
   }
 
   String gift = "";
-  Color col = Color.fromARGB(255, 200, 182, 166);
+  Color col = const Color.fromARGB(255, 200, 182, 166);
   double tot = 0.0;
   void calcTotal() => _total.value = _itemsList.fold(
       0,
       (previousValue, next) =>
           previousValue + (double.parse(next.price) * double.parse(next.qty)));
+  // ignore: non_constant_identifier_names
   void calcTotal_point() => _total_point.value = _itemsList.fold(
       0,
       (previousValue, next) =>
           previousValue + (double.parse(next.point) * double.parse(next.qty)));
   @override
   Widget build(BuildContext context) {
-    var price_it = selectedProduct?.price.toDouble() ?? 0;
-    var point_it = selectedProduct?.price.toDouble() ?? 0;
-    return SingleChildScrollView(
-      child: Scaffold(
-        backgroundColor: const Color.fromARGB(255, 200, 182, 166),
-        appBar: AppBar_eng(
-          title: "قائمة المنتجات",
-          showBackArrow: true,
-        ),
-        body: Center(
-          child: Column(
-            children: [
-              Table(
-                border: TableBorder.all(),
-                children: [
-                  TableRow(
-                    children: <Widget>[
-                      TableCell(
-                        child: Container(
-                          padding: const EdgeInsets.only(top: 8),
-                          child:
-                              const CustomText(text: AppStrings.ADD_ITEMS_NAME),
-                        ),
+    return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 200, 182, 166),
+      appBar: AppBar_eng(
+        title: "قائمة المنتجات",
+        showBackArrow: true,
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            Table(
+              border: TableBorder.all(),
+              children: [
+                TableRow(
+                  children: <Widget>[
+                    TableCell(
+                      child: Container(
+                        padding: const EdgeInsets.only(top: 8),
+                        child:
+                            const CustomText(text: AppStrings.ADD_ITEMS_NAME),
                       ),
-                      TableCell(
-                        child: Container(
-                          padding: const EdgeInsets.only(top: 8),
-                          child: const CustomText(
-                              text: AppStrings.ADD_ITEMS_PRICE),
-                        ),
+                    ),
+                    TableCell(
+                      child: Container(
+                        padding: const EdgeInsets.only(top: 8),
+                        child:
+                            const CustomText(text: AppStrings.ADD_ITEMS_PRICE),
                       ),
-                      TableCell(
-                        child: Container(
-                          padding: const EdgeInsets.only(top: 8),
-                          child:
-                              const CustomText(text: AppStrings.ADD_ITEMS_QTY),
-                        ),
+                    ),
+                    TableCell(
+                      child: Container(
+                        padding: const EdgeInsets.only(top: 8),
+                        child: const CustomText(text: AppStrings.ADD_ITEMS_QTY),
                       ),
-                      TableCell(
-                        child: Container(
-                          padding: const EdgeInsets.only(top: 8),
-                          child: const CustomText(
-                              text: AppStrings.ADD_ITEMS_ACTIONS),
-                        ),
+                    ),
+                    TableCell(
+                      child: Container(
+                        padding: const EdgeInsets.only(top: 8),
+                        child: const CustomText(
+                            text: AppStrings.ADD_ITEMS_ACTIONS),
                       ),
-                    ],
-                  ),
-                  ...itemsList
-                      .map((itemx) => CustomTableRow(
-                            item: itemx,
-                          ))
-                      .toList(),
-                ],
-              ),
-              if (itemsList.isNotEmpty)
-                SizedBox(
-                  height: Dimensions.calcH(25),
+                    ),
+                  ],
                 ),
-              if (itemsList.isNotEmpty) const Divider(),
-              if (itemsList.isNotEmpty)
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: CustomRichText(
-                    text: "${AppStrings.TOTAL} : \د\.\ل",
-                    children: [
-                      TextSpan(text: "${total.value.toStringAsFixed(2)}")
-                    ],
-                  ),
-                ),
-              Text(
-                "$gift",
-                style:
-                    TextStyle(color: col, fontFamily: "myfont", fontSize: 18),
+                ...itemsList
+                    .map(
+                      (itemx) => CustomTableRow(
+                        item: itemx,
+                      ),
+                    )
+                    .toList(),
+                // ListView(),
+              ],
+            ),
+            if (itemsList.isNotEmpty)
+              SizedBox(
+                height: Dimensions.calcH(25),
               ),
-              CustomBtn(
-                label: "التالي",
-                action: () {
+            if (itemsList.isNotEmpty) const Divider(),
+            if (itemsList.isNotEmpty)
+              Align(
+                alignment: Alignment.bottomRight,
+                child: CustomRichText(
+                  text: "${AppStrings.TOTAL} : .د.ل",
+                  children: [
+                    TextSpan(text: "${total.value.toStringAsFixed(2)}")
+                  ],
+                ),
+              ),
+            Text(
+              gift,
+              style: TextStyle(color: col, fontFamily: "myfont", fontSize: 18),
+            ),
+            CustomBtn(
+              label: "التالي",
+              action: () {
+                calcTotal();
+                calcTotal_point();
+
+                Navigator.push(
+                  context,
+                  CupertinoPageRoute<Widget>(
+                    builder: (BuildContext context) {
+                      return NewBusinessScreen();
+                    },
+                  ),
+                );
+              },
+            ),
+            CustomBtn(
+              label: "حساب المبلغ الكلي",
+              action: () {
+                // print(total);
+                if (_total.value == 0) {
                   calcTotal();
                   calcTotal_point();
-
-                  Navigator.push(
-                    context,
-                    CupertinoPageRoute<Widget>(
-                      builder: (BuildContext context) {
-                        return NewBusinessScreen();
-                      },
-                    ),
-                  );
-                },
-              ),
-              CustomBtn(
-                label: "حساب المبلغ الكلي",
-                action: () {
-                  // print(total);
-                  if (_total.value == 0) {
-                    calcTotal();
-                    calcTotal_point();
-                    update();
-                  }
-                  setState(() {
-                    double tot = _total.value;
+                  update();
+                }
+                setState(
+                  () {
                     if (_total_point.value > 100) {
                       gift = "مبروك التوصيل مجانا";
                       col = Colors.green;
@@ -236,13 +243,13 @@ class _adminpageState extends State<item_page> {
                       gift = "اكمل 100 نقطة لتحصل على توصيل مجانا";
                       col = Colors.red;
                     }
-                  });
-                  update();
-                  print(_total.value);
-                },
-              ),
-            ],
-          ),
+                  },
+                );
+                update();
+                // print(_total.value);
+              },
+            ),
+          ],
         ),
       ),
     );

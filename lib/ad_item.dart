@@ -242,9 +242,11 @@ class _adminpageState extends State<adminpage> {
                       calcTotal();
                       calcTotal_point();
                       // update();
-                      setState(() {
-                        _total.value = _total.value;
-                      });
+                      setState(
+                        () {
+                          _total.value = _total.value;
+                        },
+                      );
                       Navigator.push(
                         context,
                         CupertinoPageRoute<Widget>(
@@ -274,16 +276,20 @@ class _adminpageState extends State<adminpage> {
                             fontSize: 18,
                             fontWeight: FontWeight.bold)),
                     onChanged: (Product_mi? value) {
-                      setState(() {
-                        selectedProduct_mi = value;
-                      });
-                    },
-                    items: product_mis_mi.map((Product_mi product) {
-                      return DropdownMenuItem<Product_mi>(
-                        value: product,
-                        child: Text(product.name),
+                      setState(
+                        () {
+                          selectedProduct_mi = value;
+                        },
                       );
-                    }).toList(),
+                    },
+                    items: product_mis_mi.map(
+                      (Product_mi product) {
+                        return DropdownMenuItem<Product_mi>(
+                          value: product,
+                          child: Text(product.name),
+                        );
+                      },
+                    ).toList(),
                   ),
                 ),
                 const CustomRichText(
@@ -303,9 +309,11 @@ class _adminpageState extends State<adminpage> {
                 TextField(
                   textDirection: TextDirection.rtl,
                   onSubmitted: (value) {
-                    setState(() {
-                      _quantity = int.parse(value);
-                    });
+                    setState(
+                      () {
+                        _quantity = int.parse(value);
+                      },
+                    );
                   },
                   textInputAction: TextInputAction.done,
                   keyboardType: TextInputType.number,
@@ -329,10 +337,11 @@ class _adminpageState extends State<adminpage> {
                         outside: BorderSide.none),
                     columns: const <DataColumn>[
                       DataColumn(
-                          label: Text(
-                        'اسم المنتج',
-                        style: TextStyle(fontFamily: "myfont"),
-                      )),
+                        label: Text(
+                          'اسم المنتج',
+                          style: TextStyle(fontFamily: "myfont"),
+                        ),
+                      ),
                       DataColumn(
                           label: Text('العدد',
                               style: TextStyle(fontFamily: "myfont"))),
@@ -349,10 +358,12 @@ class _adminpageState extends State<adminpage> {
                           DataCell(Text("${selectedProduct_mi?.name}")),
                           DataCell(Text("$_quantity")),
                           DataCell(Text('${pointItMi * _quantity}')),
-                          DataCell(Text(
-                            '${priceItMi * _quantity} د.ل',
-                            style: const TextStyle(fontSize: 12),
-                          )),
+                          DataCell(
+                            Text(
+                              '${priceItMi * _quantity} د.ل',
+                              style: const TextStyle(fontSize: 12),
+                            ),
+                          ),
                         ],
                       ),
                     ],
@@ -362,15 +373,17 @@ class _adminpageState extends State<adminpage> {
                   child: CustomBtn(
                     action: () {
                       if (selectedProduct_mi?.name != null && _quantity != 0) {
-                        setState(() {
-                          itemNameInputController.text =
-                              selectedProduct_mi!.name;
-                          itemPriceInputController.text =
-                              selectedProduct_mi!.price.toString();
-                          itempointInputController.text =
-                              selectedProduct_mi!.point.toString();
-                          itemQtyInputController.text = _quantity.toString();
-                        });
+                        setState(
+                          () {
+                            itemNameInputController.text =
+                                selectedProduct_mi!.name;
+                            itemPriceInputController.text =
+                                selectedProduct_mi!.price.toString();
+                            itempointInputController.text =
+                                selectedProduct_mi!.point.toString();
+                            itemQtyInputController.text = _quantity.toString();
+                          },
+                        );
                         add_item(
                             item_name: itemNameInputController.text,
                             item_point: itempointInputController.text,
