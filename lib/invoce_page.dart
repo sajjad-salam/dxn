@@ -1,5 +1,11 @@
+import 'dart:async';
 import 'dart:collection';
+import 'dart:ui' as ui;
+
 import 'dart:typed_data';
+import 'package:dxn/test.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/rendering.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:dxn/screens/invoices_screens/new_invoice_screen/new_items/widgets/custom_tablerow.dart';
 import 'package:dxn/screens/shared_widgets/appbar_eng_view.dart';
@@ -79,23 +85,25 @@ class _invoState extends State<invo> {
   TextEditingController itemQtyInputController = TextEditingController();
   TextEditingController itempointInputController = TextEditingController();
   final _screenshotController = ScreenshotController();
-
-  Future<String?> takeScreenShot() async {
-    try {
-      // Capture the screen using the ScreenshotController
-      final image = await _screenshotController.capture();
-
-      // Get the directory where the screenshot will be saved
-      final directory = await getApplicationDocumentsDirectory();
-      final filePath = '${directory.path}/screenshot.png';
-
-      // Write the captured image to a file in the directory
-      final file = File(filePath);
-      await file.writeAsBytes(image!);
-
-      return filePath;
-    } catch (e) {
+  final ScreenshotController screenshotController = ScreenshotController();
+  void _CaptureScreenShot() async {
+    //get paint bound of your app screen or the widget which is wrapped with RepaintBoundary.
+    RenderRepaintBoundary bound =
+        _key.currentContext!.findRenderObject() as RenderRepaintBoundary;
+    if (bound.debugNeedsPaint) {
+      Timer(Duration(seconds: 1), () => _CaptureScreenShot());
       return null;
+    }
+    ui.Image image = await bound.toImage();
+    ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+    // this will save image screenshot in gallery
+    if (byteData != null) {
+      Uint8List pngBytes = byteData.buffer.asUint8List();
+      final resultsave = await ImageGallerySaver.saveImage(
+          Uint8List.fromList(pngBytes),
+          quality: 90,
+          name: 'screenshot-${DateTime.now()}.png');
+      print(resultsave);
     }
   }
 
@@ -202,150 +210,139 @@ class _invoState extends State<invo> {
       0,
       (previousValue, next) =>
           previousValue + (double.parse(next.point) * double.parse(next.qty)));
+  final GlobalKey _key = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 200, 182, 166),
-      appBar: AppBar_eng(
-        title: "الوصل",
-        showBackArrow: true,
-      ),
-      body: Column(
-        children: [
-          Table(
-            border: TableBorder.all(),
-            children: [
-              TableRow(
-                children: <Widget>[
-                  TableCell(
-                    child: Container(
-                      padding: const EdgeInsets.all(8),
-                      child: const CustomText(text: AppStrings.ADD_ITEMS_NAME),
+    return RepaintBoundary(
+      key: _key,
+      child: Scaffold(
+        backgroundColor: const Color.fromARGB(255, 200, 182, 166),
+        appBar: AppBar_eng(
+          title: "الوصل",
+          showBackArrow: true,
+        ),
+        body: Column(
+          children: [
+            Table(
+              border: TableBorder.all(),
+              children: [
+                TableRow(
+                  children: <Widget>[
+                    TableCell(
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        child:
+                            const CustomText(text: AppStrings.ADD_ITEMS_NAME),
+                      ),
                     ),
-                  ),
-                  TableCell(
-                    child: Container(
-                      padding: const EdgeInsets.all(8),
-                      child: const CustomText(text: AppStrings.ADD_ITEMS_PRICE),
+                    TableCell(
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        child:
+                            const CustomText(text: AppStrings.ADD_ITEMS_PRICE),
+                      ),
                     ),
-                  ),
-                  TableCell(
-                    child: Container(
-                      padding: const EdgeInsets.all(8),
-                      child: const CustomText(text: AppStrings.ADD_ITEMS_QTY),
+                    TableCell(
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        child: const CustomText(text: AppStrings.ADD_ITEMS_QTY),
+                      ),
                     ),
-                  ),
-                  TableCell(
-                    child: Container(
-                      padding: const EdgeInsets.all(8),
-                      child:
-                          const CustomText(text: AppStrings.ADD_ITEMS_ACTIONS),
+                    TableCell(
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        child: const CustomText(
+                            text: AppStrings.ADD_ITEMS_ACTIONS),
+                      ),
                     ),
+                  ],
+                ),
+                ...itemsList
+                    .map(
+                      (itemx) => CustomTableRow(
+                        item: itemx,
+                      ),
+                    )
+                    .toList(),
+              ],
+            ),
+            if (itemsList.isNotEmpty)
+              SizedBox(
+                height: Dimensions.calcH(25),
+              ),
+            if (itemsList.isNotEmpty) const Divider(),
+            if (itemsList.isNotEmpty)
+              Align(
+                alignment: Alignment.bottomRight,
+                child: CustomRichText(
+                  text: "${AppStrings.TOTAL} : .د.ل",
+                  children: [TextSpan(text: _total.value.toString())],
+                ),
+              ),
+            Text(
+              gift,
+              style: TextStyle(color: col, fontFamily: "myfont", fontSize: 18),
+            ),
+            Container(
+              margin: const EdgeInsets.all(8),
+              alignment: Alignment.centerLeft,
+              // padding: EdgeInsets.only(left: 1),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: Row(
+                textDirection: TextDirection.rtl,
+                children: [
+                  Text(
+                    "$name_user   :الأسم\n $address   :العنوان\n $phone_number   :رقم الهاتف\n $name_of_mmber   :اسم العضوية\n$number_mmber   :رقم العضوية",
+                    style: const TextStyle(fontFamily: "myfont", fontSize: 18),
                   ),
                 ],
               ),
-              ...itemsList
-                  .map(
-                    (itemx) => CustomTableRow(
-                      item: itemx,
-                    ),
-                  )
-                  .toList(),
-            ],
-          ),
-          if (itemsList.isNotEmpty)
-            SizedBox(
-              height: Dimensions.calcH(25),
             ),
-          if (itemsList.isNotEmpty) const Divider(),
-          if (itemsList.isNotEmpty)
-            Align(
-              alignment: Alignment.bottomRight,
-              child: CustomRichText(
-                text: "${AppStrings.TOTAL} : .د.ل",
-                children: [TextSpan(text: _total.value.toString())],
+            CustomBtn(
+              label: "حساب المبلغ الكلي",
+              action: () {
+                if (_total.value == 0) {
+                  calcTotal();
+                  calcTotal_point();
+
+                  update();
+                }
+                setState(
+                  () {
+                    if (_total_point.value > 100) {
+                      gift = "مبروك التوصيل مجانا";
+                      col = Colors.green;
+                    } else {
+                      gift = "اكمل 100 نقطة لتحصل على توصيل مجانا";
+                      col = Colors.red;
+                    }
+                  },
+                );
+                update();
+                // print(_total.value);
+              },
+            ),
+            Screenshot(
+              controller: _screenshotController,
+              child: const Text(
+                'اضغط على الزر بألأسفل لأخذ لقطة شاشة',
+                style: TextStyle(
+                    fontSize: 14, color: Colors.white, fontFamily: "myfont"),
               ),
             ),
-          Text(
-            gift,
-            style: TextStyle(color: col, fontFamily: "myfont", fontSize: 18),
-          ),
-          Container(
-            margin: const EdgeInsets.all(8),
-            alignment: Alignment.centerLeft,
-            // padding: EdgeInsets.only(left: 1),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey),
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            child: Row(
-              textDirection: TextDirection.rtl,
-              children: [
-                Text(
-                  "$name_user   :الأسم\n $address   :العنوان\n $phone_number   :رقم الهاتف\n $name_of_mmber   :اسم العضوية\n$number_mmber   :رقم العضوية",
-                  style: const TextStyle(fontFamily: "myfont", fontSize: 18),
-                ),
-              ],
-            ),
-          ),
-          CustomBtn(
-            label: "حساب المبلغ الكلي",
-            action: () {
-              if (_total.value == 0) {
-                calcTotal();
-                calcTotal_point();
-
-                update();
-              }
-              setState(
-                () {
-                  if (_total_point.value > 100) {
-                    gift = "مبروك التوصيل مجانا";
-                    col = Colors.green;
-                  } else {
-                    gift = "اكمل 100 نقطة لتحصل على توصيل مجانا";
-                    col = Colors.red;
-                  }
-                },
-              );
-              update();
-              // print(_total.value);
-            },
-          ),
-          Screenshot(
-            controller: _screenshotController,
-            child: const Text(
-              'اضغط على الزر بألأسفل لأخذ لقطة شاشة',
-              style: TextStyle(
-                  fontSize: 14, color: Colors.white, fontFamily: "myfont"),
-            ),
-          ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          final screenshotPath = await takeScreenShot();
-          final image = await _screenshotController.capture();
-          if (image != null) {
-            // ignore: avoid_print
-            print('Screenshot saved at $screenshotPath');
-            await savaimage(Uint8List(5));
-          }
-        },
-        child: const Icon(Icons.camera),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () async {
+            _CaptureScreenShot();
+          },
+          child: const Icon(Icons.camera),
+        ),
       ),
     );
   }
-}
-
-Future<String> savaimage(Uint8List bytes) async {
-  await [Permission.storage].request();
-  final time = DateTime.now()
-      .toIso8601String()
-      .replaceAll(".", "-")
-      .replaceAll(":", "-");
-  final name = "screenshot_$time";
-  final result = await ImageGallerySaver.saveImage(bytes, name: name);
-  return result("pathfile");
 }

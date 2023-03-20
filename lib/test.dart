@@ -1,35 +1,67 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_screenshot/flutter_screenshot.dart';
+import 'dart:async';
+import 'dart:typed_data';
+import 'dart:ui' as ui;
 
-// class MyHomePage extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Screenshot Example'),
-//       ),
-//       body: Center(
-//         child: RaisedButton(
-//           onPressed: () async {
-//             // Take the screenshot and get the image file
-//             var imageFile = await ScreenshotController().capture();
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 
-//             // Save the image file to the device's gallery
-//             await ImageGallerySaver.saveFile(imageFile.path);
+class MyHomepage extends StatefulWidget {
+  const MyHomepage({Key? key}) : super(key: key);
+  @override
+  State<MyHomepage> createState() => _MyHomepageState();
+}
 
-//             // Show a snackbar with the result
-//             Scaffold.of(context).showSnackBar(
-//               SnackBar(
-//                 content: Text('Screenshot saved to gallery'),
-//               ),
-//             );
-//           },
-//           child: Text('Take Screenshot'),
-//         ),
-//       ),
-//     );
-//   }
-// }
+class _MyHomepageState extends State<MyHomepage> {
+  final GlobalKey _key = GlobalKey();
+  void _CaptureScreenShot() async {
+    //get paint bound of your app screen or the widget which is wrapped with RepaintBoundary.
+    RenderRepaintBoundary bound =
+        _key.currentContext!.findRenderObject() as RenderRepaintBoundary;
+    if (bound.debugNeedsPaint) {
+      Timer(Duration(seconds: 1), () => _CaptureScreenShot());
+      return null;
+    }
+    ui.Image image = await bound.toImage();
+    ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+    // this will save image screenshot in gallery
+    if (byteData != null) {
+      Uint8List pngBytes = byteData.buffer.asUint8List();
+      final resultsave = await ImageGallerySaver.saveImage(
+          Uint8List.fromList(pngBytes),
+          quality: 90,
+          name: 'screenshot-${DateTime.now()}.png');
+      print(resultsave);
+    }
+  }
 
-
-
+  @override
+  Widget build(BuildContext context) {
+    //Here i have wrapped whole app screen scaffold widget, to take full screenshot
+    return RepaintBoundary(
+      key: _key,
+      child: Scaffold(
+        body: Center(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              color: Colors.blue,
+              width: 220,
+              height: 220,
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  _CaptureScreenShot(); // Method called to take screenshot on wrapped widget and save it.
+                },
+                child: Text("Capture & Save"))
+          ],
+        )),
+      ),
+    );
+  }
+}
